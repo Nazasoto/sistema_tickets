@@ -38,8 +38,12 @@ SISTEMA/
 ├── sistema-gestion/   # Frontend del sistema
 │   ├── src/          # Código fuente
 │   │   ├── components/ # Componentes React
+│   │   │   └── admin/ # Componentes de administrador
 │   │   ├── css/      # Estilos CSS
-│   │   └── index.js  # Punto de entrada
+│   │   │   ├── components/ # Estilos de componentes
+│   │   │   └── main.css  # Estilos globales
+│   │   ├── pages/    # Páginas principales
+│   │   └── main.jsx  # Punto de entrada React
 │   └── public/       # Archivos estáticos
 └── DOCS/             # Documentación
 ```
@@ -102,10 +106,20 @@ sistema-gestion/
 - Sistema de autenticación
 - Integración con backend
 - Manejo de estados de autenticación
+- Diseño responsive
+- Validación de formularios
+
+#### Admin Panel
+- Dashboard con saludo personalizado
+- Navegación con barra lateral
+- Secciones: Usuarios, Movimientos, Reportes y Configuración
+- Contenedor de estado de sucursales
+- Diseño moderno y responsive
 
 #### Rutas
 - React Router para manejo de navegación
 - Protección de rutas según roles de usuario
+- Navegación segura entre secciones
 
 ### Estilos
 
@@ -113,6 +127,9 @@ sistema-gestion/
 - Organización modular de estilos
 - Estilos globales en main.css
 - Estilos componentes específicos en archivos separados
+- Diseño responsive para dispositivos móviles
+- Sistema de colores consistente
+- Animaciones y transiciones suaves
 
 ### Scripts de Desarrollo
 
@@ -186,6 +203,10 @@ El sistema tiene tres roles principales:
    - Puede crear y gestionar usuarios
    - Puede ver y modificar todos los tickets
    - Puede configurar permisos y roles
+   - Puede ver reportes y estadísticas
+   - Tiene acceso a historial mensual de actividades
+   - Puede gestionar configuraciones del sistema
+   - Puede ver estado de sucursales activas
 
 2. **Soporte**
    - Acceso a tickets asignados
