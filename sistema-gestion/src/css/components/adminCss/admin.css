@@ -1,0 +1,32 @@
+.container-admin{
+    margin: 0 auto;
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-admin{
+    border-radius: 5px;
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    text-decoration: none;
+}
+
+.navbar-links a{
+    color: #000000;
+    text-decoration: none;
+    padding: 0px 20px;
+    border-radius: 5px;
+}
+
+h1{
+    color: #000000;
+    font-size: 2rem;
+    margin: 20px 0;
+}
+
+

@@ -10,10 +10,10 @@
 
 .login-form {
     background: #fff;
-    padding: 2rem 2.5rem;
+    padding: 1rem 2.5rem;
     border-radius: 10px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    max-width: 350px;
+    max-width: 550px;
     margin: 0 auto 1.5rem auto;
     display: flex;
     flex-direction: column;
@@ -85,6 +85,13 @@ button:not(.login-button):hover {
 }
 
 
-.form-footer button{
+.form-footer h1{
+    color: black;
+    font-size: 1.2rem;
+}
+
+.form-footer a {
+    color: #1976d2;
     text-decoration: none;
+    font-size: 1rem;
 }
