@@ -68,6 +68,7 @@ Sistema de Gestión de Tickets es una aplicación web completa diseñada para ge
 ## Estructura del Proyecto
 
 ```
+<<<<<<< HEAD
 sistema_tickets/
 ├── backend/                 # Backend del sistema
 │   ├── config/             # Configuraciones
@@ -115,6 +116,28 @@ sistema_tickets/
 │
 └── DOCS/                   # Documentación
     └── README.md           # Este archivo
+=======
+SISTEMA/
+├── backend/           # Backend del sistema
+│   ├── config/        # Configuración del backend
+│   ├── controllers/   # Controladores
+│   ├── middleware/    # Middleware
+│   ├── models/        # Modelos de datos
+│   ├── routes/        # Rutas API
+│   ├── scripts/       # Scripts de utilidad
+│   └── server.js      # Punto de entrada del servidor
+├── sistema-gestion/   # Frontend del sistema
+│   ├── src/          # Código fuente
+│   │   ├── components/ # Componentes React
+│   │   │   └── admin/ # Componentes de administrador
+│   │   ├── css/      # Estilos CSS
+│   │   │   ├── components/ # Estilos de componentes
+│   │   │   └── main.css  # Estilos globales
+│   │   ├── pages/    # Páginas principales
+│   │   └── main.jsx  # Punto de entrada React
+│   └── public/       # Archivos estáticos
+└── DOCS/             # Documentación
+>>>>>>> 32790c65eb6f51e95eed2dfa2f04f809e849a18c
 ```
 
 ## Configuración del Entorno
@@ -140,6 +163,84 @@ SMTP_PORT=587
 SMTP_USER=usuario@ejemplo.com
 SMTP_PASS=tu_contraseña
 ```
+<<<<<<< HEAD
+=======
+sistema-gestion/
+├── public/          # Archivos estáticos
+├── src/             # Código fuente
+│   ├── components/   # Componentes React
+│   │   ├── login.css # Estilos del componente de login
+│   │   └── main.css  # Estilos globales
+│   ├── index.html   # Punto de entrada HTML
+└── vite.config.js   # Configuración de Vite
+```
+
+### Tecnologías Principales
+
+- React 19.1.0
+- React Router DOM 7.7.1
+- Vite 7.0.4
+- TypeScript (configurado)
+- ESLint para validación de código
+
+### Componentes Principales
+
+#### Login Component
+- Sistema de autenticación
+- Integración con backend
+- Manejo de estados de autenticación
+- Diseño responsive
+- Validación de formularios
+
+#### Admin Panel
+- Dashboard con saludo personalizado
+- Navegación con barra lateral
+- Secciones: Usuarios, Movimientos, Reportes y Configuración
+- Contenedor de estado de sucursales
+- Diseño moderno y responsive
+
+#### Rutas
+- React Router para manejo de navegación
+- Protección de rutas según roles de usuario
+- Navegación segura entre secciones
+
+### Estilos
+
+- CSS puro con archivos separados
+- Organización modular de estilos
+- Estilos globales en main.css
+- Estilos componentes específicos en archivos separados
+- Diseño responsive para dispositivos móviles
+- Sistema de colores consistente
+- Animaciones y transiciones suaves
+
+### Scripts de Desarrollo
+
+```bash
+# Desarrollo
+npm run dev
+
+# Construcción
+npm run build
+
+# Previsualización
+npm run preview
+
+# Linting
+npm run lint
+```
+
+## Requisitos del Sistema
+
+### Backend
+- Node.js 16+
+- MongoDB (local o en memoria)
+- npm o yarn
+
+### Frontend
+- Navegador moderno
+- Internet Explorer no soportado
+>>>>>>> 32790c65eb6f51e95eed2dfa2f04f809e849a18c
 
 ## Instalación
 
@@ -199,10 +300,22 @@ SMTP_PASS=tu_contraseña
    npm run build
    ```
 
+<<<<<<< HEAD
 2. **Iniciar el servidor en producción**
    ```bash
    npm run preview
    ```
+=======
+1. **Admin**
+   - Acceso completo al sistema
+   - Puede crear y gestionar usuarios
+   - Puede ver y modificar todos los tickets
+   - Puede configurar permisos y roles
+   - Puede ver reportes y estadísticas
+   - Tiene acceso a historial mensual de actividades
+   - Puede gestionar configuraciones del sistema
+   - Puede ver estado de sucursales activas
+>>>>>>> 32790c65eb6f51e95eed2dfa2f04f809e849a18c
 
 ## API Documentation
 
