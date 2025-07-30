@@ -1,203 +1,276 @@
 # Sistema de Gestión de Tickets
 
-## Índice
+## Tabla de Contenidos
 
 - [Descripción General](#descripción-general)
+- [Características Principales](#características-principales)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
 - [Estructura del Proyecto](#estructura-del-proyecto)
-- [Backend](#backend)
-  - [Configuración](#configuración)
-  - [Autenticación](#autenticación)
-  - [Base de Datos](#base-de-datos)
-  - [API Endpoints](#api-endpoints)
-- [Frontend](#frontend)
-  - [Estructura](#estructura)
-  - [Componentes Principales](#componentes-principales)
-  - [Estilos](#estilos)
-- [Requisitos del Sistema](#requisitos-del-sistema)
+- [Configuración del Entorno](#configuración-del-entorno)
 - [Instalación](#instalación)
 - [Uso](#uso)
-- [Seguridad](#seguridad)
+- [API Documentation](#api-documentation)
+- [Despliegue](#despliegue)
 - [Contribución](#contribución)
+- [Licencia](#licencia)
 
 ## Descripción General
 
-Este es un sistema de gestión de tickets que permite a los usuarios crear, gestionar y rastrear tickets de soporte. El sistema está diseñado para ser utilizado por diferentes roles de usuarios: administradores, soporte y usuarios de sucursales.
+Sistema de Gestión de Tickets es una aplicación web completa diseñada para gestionar y hacer seguimiento de tickets de soporte. Permite a los usuarios reportar problemas, realizar seguimiento de su estado y comunicarse con el equipo de soporte de manera eficiente.
+
+## Características Principales
+
+- **Autenticación de Usuarios**
+  - Registro e inicio de sesión seguro
+  - Recuperación de contraseña
+  - Perfiles de usuario personalizables
+
+- **Gestión de Tickets**
+  - Creación y seguimiento de tickets
+  - Asignación de prioridades y categorías
+  - Adjuntar archivos a los tickets
+  - Historial de cambios
+
+- **Panel de Control**
+  - Vista general de estadísticas
+  - Filtros avanzados
+  - Exportación de informes
+
+- **Notificaciones**
+  - Notificaciones en tiempo real
+  - Notificaciones por correo electrónico
+  - Preferencias de notificación personalizables
+
+## Tecnologías Utilizadas
+
+### Frontend
+- React 19.1.0
+- React Router DOM 7.7.1
+- Vite 7.0.4
+- Axios para peticiones HTTP
+- Context API para gestión de estado global
+- CSS Modules para estilos modulares
+
+### Backend
+- Node.js 18+
+- Express.js
+- MongoDB con Mongoose
+- JWT para autenticación
+- Bcrypt para hashing de contraseñas
+- Winston para logging
+
+### Herramientas de Desarrollo
+- ESLint para análisis de código
+- Prettier para formato de código
+- Git para control de versiones
+- Postman para pruebas de API
 
 ## Estructura del Proyecto
 
 ```
-SISTEMA/
-├── backend/           # Backend del sistema
-│   ├── config/        # Configuración del backend
-│   ├── controllers/   # Controladores
-│   ├── middleware/    # Middleware
-│   ├── models/        # Modelos de datos
-│   ├── routes/        # Rutas API
-│   ├── scripts/       # Scripts de utilidad
-│   └── server.js      # Punto de entrada del servidor
-├── sistema-gestion/   # Frontend del sistema
-│   ├── src/          # Código fuente
-│   │   ├── components/ # Componentes React
-│   │   ├── css/      # Estilos CSS
-│   │   └── index.js  # Punto de entrada
-│   └── public/       # Archivos estáticos
-└── DOCS/             # Documentación
+sistema_tickets/
+├── backend/                 # Backend del sistema
+│   ├── config/             # Configuraciones
+│   │   └── db.js           # Configuración de la base de datos
+│   ├── controllers/         # Controladores de la API
+│   │   ├── authController.js
+│   │   ├── ticketController.js
+│   │   └── userController.js
+│   ├── middleware/         # Middleware personalizados
+│   │   └── auth.js         # Middleware de autenticación
+│   ├── models/             # Modelos de MongoDB
+│   │   ├── Ticket.js
+│   │   └── User.js
+│   ├── routes/             # Rutas de la API
+│   │   ├── auth.js
+│   │   ├── tickets.js
+│   │   └── users.js
+│   ├── utils/              # Utilidades
+│   │   └── logger.js       # Configuración de logs
+│   └── server.js           # Punto de entrada del servidor
+│
+├── sistema-gestion/        # Frontend del sistema
+│   ├── public/             # Archivos estáticos
+│   └── src/
+│       ├── assets/         # Recursos estáticos
+│       ├── components/     # Componentes reutilizables
+│       │   ├── auth/       # Componentes de autenticación
+│       │   ├── common/     # Componentes comunes
+│       │   ├── dashboard/  # Componentes del dashboard
+│       │   └── tickets/    # Componentes de tickets
+│       ├── config/         # Configuraciones
+│       │   └── api.js      # Configuración de la API
+│       ├── context/        # Contextos de React
+│       ├── hooks/          # Custom hooks
+│       ├── layouts/        # Layouts de la aplicación
+│       ├── pages/          # Páginas de la aplicación
+│       ├── services/       # Servicios de la aplicación
+│       │   ├── api.service.js
+│       │   ├── auth.service.js
+│       │   └── ticket.service.js
+│       ├── styles/         # Estilos globales
+│       ├── utils/          # Utilidades
+│       ├── App.jsx         # Componente principal
+│       └── main.jsx        # Punto de entrada
+│
+└── DOCS/                   # Documentación
+    └── README.md           # Este archivo
 ```
 
-## Backend
+## Configuración del Entorno
 
-### Configuración
+### Variables de Entorno
 
-El backend utiliza Node.js con Express como framework. Las principales dependencias son:
-- Express: Framework web
-- Mongoose: ORM para MongoDB
-- JWT: Autenticación basada en tokens
-- Bcrypt: Hashing de contraseñas
-- CORS: Control de acceso cross-origin
+Crea un archivo `.env` en la raíz del backend con las siguientes variables:
 
-### Autenticación
+```env
+# Puerto del servidor
+PORT=5000
 
-El sistema implementa un sistema de autenticación JWT que verifica los roles de usuario:
-- admin: Acceso completo al sistema
-- soporte: Manejo de tickets
-- sucursal: Creación y seguimiento de tickets
+# Configuración de MongoDB
+MONGODB_URI=mongodb://localhost:27017/tickets_db
 
-### Base de Datos
+# JWT
+JWT_SECRET=tu_clave_secreta_jwt
+JWT_EXPIRES_IN=30d
 
-El sistema utiliza MongoDB como base de datos principal. Actualmente está configurado para usar MongoDB Memory Server en desarrollo, pero puede ser configurado para usar MongoDB local.
-
-### API Endpoints
-
-- `POST /api/usuarios/login`: Autenticación de usuarios
-- Otros endpoints relacionados con la gestión de tickets
-
-## Frontend
-
-### Estructura
-
-El frontend está desarrollado con React y utiliza componentes funcionales con hooks. La aplicación utiliza Vite como bundler y está configurada para TypeScript.
-
+# Configuración de correo (opcional)
+SMTP_HOST=smtp.ejemplo.com
+SMTP_PORT=587
+SMTP_USER=usuario@ejemplo.com
+SMTP_PASS=tu_contraseña
 ```
-sistema-gestion/
-├── public/          # Archivos estáticos
-├── src/             # Código fuente
-│   ├── components/   # Componentes React
-│   │   ├── login.css # Estilos del componente de login
-│   │   └── main.css  # Estilos globales
-│   ├── index.html   # Punto de entrada HTML
-└── vite.config.js   # Configuración de Vite
-```
-
-### Tecnologías Principales
-
-- React 19.1.0
-- React Router DOM 7.7.1
-- Vite 7.0.4
-- TypeScript (configurado)
-- ESLint para validación de código
-
-### Componentes Principales
-
-#### Login Component
-- Sistema de autenticación
-- Integración con backend
-- Manejo de estados de autenticación
-
-#### Rutas
-- React Router para manejo de navegación
-- Protección de rutas según roles de usuario
-
-### Estilos
-
-- CSS puro con archivos separados
-- Organización modular de estilos
-- Estilos globales en main.css
-- Estilos componentes específicos en archivos separados
-
-### Scripts de Desarrollo
-
-```bash
-# Desarrollo
-npm run dev
-
-# Construcción
-npm run build
-
-# Previsualización
-npm run preview
-
-# Linting
-npm run lint
-```
-
-## Requisitos del Sistema
-
-### Backend
-- Node.js 16+
-- MongoDB (local o en memoria)
-- npm o yarn
-
-### Frontend
-- Navegador moderno
-- Internet Explorer no soportado
 
 ## Instalación
 
-### Backend
+### Requisitos Previos
 
-```bash
-# Instalar dependencias
-cd backend
-npm install
+- Node.js 18 o superior
+- MongoDB 6.0 o superior
+- npm 9.0 o superior
 
-# Iniciar servidor
-npm run dev
-```
+### Pasos de Instalación
 
-### Frontend
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/tu-usuario/sistema-gestion-tickets.git
+   cd sistema-gestion-tickets
+   ```
 
-```bash
-# Instalar dependencias
-cd sistema-gestion
-npm install
+2. **Instalar dependencias del backend**
+   ```bash
+   cd backend
+   npm install
+   ```
 
-# Iniciar aplicación
-npm start
-```
+3. **Instalar dependencias del frontend**
+   ```bash
+   cd ../sistema-gestion
+   npm install
+   ```
+
+4. **Iniciar la base de datos**
+   Asegúrate de tener MongoDB en ejecución localmente o configura la conexión en el archivo `.env`.
 
 ## Uso
 
-1. Iniciar el backend con `npm run dev` en la carpeta `backend`
-2. Iniciar el frontend con `npm start` en la carpeta `sistema-gestion`
-3. Acceder a la aplicación en `http://localhost:3000`
+### Desarrollo
 
-## Seguridad
+1. **Iniciar el servidor de desarrollo del backend**
+   ```bash
+   cd backend
+   npm run dev
+   ```
 
-### Autenticación JWT
+2. **Iniciar el servidor de desarrollo del frontend**
+   ```bash
+   cd ../sistema-gestion
+   npm run dev
+   ```
 
-El sistema utiliza JWT (JSON Web Tokens) para la autenticación de usuarios. Los tokens son generados al iniciar sesión y se envían en el header de autorización de todas las peticiones protegidas.
+3. **Acceder a la aplicación**
+   Abre tu navegador en [http://localhost:5173](http://localhost:5173)
 
-### Roles de Usuario
+### Producción
 
-El sistema tiene tres roles principales:
+1. **Construir la aplicación para producción**
+   ```bash
+   cd sistema-gestion
+   npm run build
+   ```
 
-1. **Admin**
-   - Acceso completo al sistema
-   - Puede crear y gestionar usuarios
-   - Puede ver y modificar todos los tickets
-   - Puede configurar permisos y roles
+2. **Iniciar el servidor en producción**
+   ```bash
+   npm run preview
+   ```
 
-2. **Soporte**
-   - Acceso a tickets asignados
-   - Puede crear y asignar tickets
-   - Puede actualizar el estado de los tickets
-   - Puede comunicarse con usuarios
+## API Documentation
 
-3. **Sucursal**
-   - Puede crear tickets
-   - Puede ver sus propios tickets
-   - Puede actualizar información de sus tickets
-   - Puede comunicarse con soporte
+La documentación completa de la API está disponible en `/api-docs` cuando el servidor está en ejecución.
+
+### Autenticación
+
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario@ejemplo.com",
+  "password": "contraseña123"
+}
+```
+
+### Tickets
+
+#### Obtener todos los tickets
+```http
+GET /api/tickets
+Authorization: Bearer <token>
+```
+
+#### Crear un nuevo ticket
+```http
+POST /api/tickets
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "titulo": "Problema con el sistema de facturación",
+  "descripcion": "No puedo generar facturas desde ayer.",
+  "prioridad": "alta",
+  "categoria": "facturacion"
+}
+```
+
+## Despliegue
+
+### Docker
+
+El proyecto incluye un archivo `docker-compose.yml` para facilitar el despliegue:
+
+```bash
+docker-compose up -d
+```
+
+### Plataformas en la Nube
+
+El sistema puede ser desplegado en:
+- Heroku
+- AWS Elastic Beanstalk
+- Google Cloud Run
+- Microsoft Azure App Service
+
+## Contribución
+
+1. Haz un fork del proyecto
+2. Crea una rama para tu característica (`git checkout -b feature/nueva-caracteristica`)
+3. Haz commit de tus cambios (`git commit -am 'Añadir nueva característica'`)
+4. Haz push a la rama (`git push origin feature/nueva-caracteristica`)
+5. Abre un Pull Request
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
 ### Protección de Rutas
 

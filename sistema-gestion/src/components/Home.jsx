@@ -2,15 +2,17 @@
 import React from "react";
 //ort Login from "./logs/Login";
 //import Register from "./logs/Register";
-import AdminPanel from "../pages/AdminPanel";
-
+//import AdminPanel from "../pages/AdminPanel";
+import SoportePanel from "../pages/SoportePanel";
+import NavBar from "./NavBarLogic";
 
 
 // Creamos el componente
 const Home = () => {
   return (
     <div>
-      <AdminPanel />
+      <NavBar />
+      <SoportePanel />
     </div>
   );
 };

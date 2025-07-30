@@ -1,7 +1,9 @@
 import React from "react";
-const HomeAdmin = () => {
+
+
+const HomeSoporte = () => {
     // Obtenemos el nombre de forma local hasta que se implemente la autenticacion y se sepa el nombre del administrador
-    const adminName = localStorage.getItem("adminName") || "NAZARENO";
+    const usuario = localStorage.getItem("usuario") || "NAZA";
     // Obtener la hora actual
     const currentHour = new Date().getHours();
 
@@ -19,10 +21,10 @@ const HomeAdmin = () => {
     return (
         <div>
         <div className="container-admin">
-            <h1>{greeting}, {adminName}</h1>
+            <h1>{greeting}, {usuario}</h1>
         </div>
         </div>
     );
 };
 
-export default HomeAdmin;
+export default HomeSoporte;
