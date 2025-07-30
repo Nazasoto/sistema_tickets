@@ -1,14 +1,24 @@
 import api from './api.service';
 import { API_ENDPOINTS } from '../config/api';
+import { jwtDecode } from 'jwt-decode';
 
 const AuthService = {
   // Iniciar sesión
   async login(credentials) {
     try {
-      const response = await api.post(API_ENDPOINTS.AUTH.LOGIN, credentials);
+      // Convertir email a username si es necesario
+      const loginData = {
+        username: credentials.email || credentials.username,
+        password: credentials.password
+      };
+      
+      const response = await api.post(API_ENDPOINTS.AUTH.LOGIN, loginData);
+      
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
+        // Obtener datos del usuario usando el token
+        const userData = await this.getCurrentUser();
+        return { ...response.data, user: userData };
       }
       return response.data;
     } catch (error) {
@@ -26,11 +36,22 @@ const AuthService = {
   // Obtener datos del usuario autenticado
   async getCurrentUser() {
     try {
-      const response = await api.get(API_ENDPOINTS.AUTH.PROFILE);
-      localStorage.setItem('user', JSON.stringify(response.data));
-      return response.data;
+      const response = await api.get(API_ENDPOINTS.USERS.PROFILE);
+      const userData = response.data;
+      localStorage.setItem('user', JSON.stringify(userData));
+      return userData;
     } catch (error) {
       console.error('Error al obtener el usuario actual:', error);
+      // Si hay un error, intentar obtener el usuario del token
+      const token = this.getToken();
+      if (token) {
+        try {
+          const decoded = jwtDecode(token);
+          return { _id: decoded.id, role: decoded.role };
+        } catch (e) {
+          console.error('Error al decodificar el token:', e);
+        }
+      }
       throw error;
     }
   },

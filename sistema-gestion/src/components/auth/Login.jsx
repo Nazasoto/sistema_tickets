@@ -13,14 +13,29 @@ const Login = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
+    // Validación básica
+    if (!email || !password) {
+      setError('Por favor ingresa tu correo y contraseña');
+      return;
+    }
+    
     setIsLoading(true);
 
     try {
-      await AuthService.login({ email, password });
-      onLoginSuccess();
-      navigate('/dashboard');
+      const response = await AuthService.login({ email, password });
+      
+      if (response && response.token) {
+        onLoginSuccess();
+        navigate('/dashboard');
+      } else {
+        setError('No se pudo iniciar sesión. Por favor, verifica tus credenciales.');
+      }
     } catch (error) {
-      setError('Credenciales inválidas. Por favor, inténtalo de nuevo.');
+      const errorMessage = error.response?.data?.msg || 
+                         error.message || 
+                         'Error al conectar con el servidor. Por favor, inténtalo de nuevo más tarde.';
+      setError(errorMessage);
       console.error('Error en el inicio de sesión:', error);
     } finally {
       setIsLoading(false);

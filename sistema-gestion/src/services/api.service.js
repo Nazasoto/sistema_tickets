@@ -21,19 +21,42 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor para manejar respuestas de error
+// Interceptor para manejar respuestas exitosas
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Puedes modificar la respuesta exitosa aquí si es necesario
+    return response.data;
+  },
   (error) => {
-    if (error.response?.status === 401) {
-      // Token expirado o no válido
+    const originalRequest = error.config;
+    
+    // Si el error es 401 y no es una solicitud de autenticación
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      // Marcar la solicitud como ya reintentada
+      originalRequest._retry = true;
+      
+      // Limpiar credenciales inválidas
       localStorage.removeItem('token');
-      // Redirigir al login
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
+      localStorage.removeItem('user');
+      
+      // Redirigir a la página de sesión expirada
+      if (window.location.pathname !== '/session-expired') {
+        window.location.href = '/session-expired';
       }
     }
-    return Promise.reject(error);
+    
+    // Proporcionar un mensaje de error más descriptivo
+    const errorMessage = error.response?.data?.message || 
+                        error.response?.data?.error || 
+                        error.message || 
+                        'Error de conexión con el servidor';
+    
+    // Crear un nuevo error con el mensaje mejorado
+    const apiError = new Error(errorMessage);
+    apiError.status = error.response?.status;
+    apiError.response = error.response;
+    
+    return Promise.reject(apiError);
   }
 );
 

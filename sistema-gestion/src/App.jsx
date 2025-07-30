@@ -7,6 +7,7 @@ import './css/main.css';
 import Home from './components/Home';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import SessionExpired from './components/auth/SessionExpired';
 import Dashboard from './components/dashboard/Dashboard';
 import Tickets from './components/tickets/Tickets';
 import TicketDetail from './components/tickets/TicketDetail';
@@ -111,6 +112,9 @@ const App = () => {
             </ProtectedRoute>
           } />
 
+          {/* Ruta para sesión expirada */}
+          <Route path="/session-expired" element={<SessionExpired />} />
+          
           {/* Ruta 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
