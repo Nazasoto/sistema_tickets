@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "nombre": "Admin",
+      "email": "admin@example.com",
+      "password": "hashed_password_here",
+      "rol": "admin"
+    },
+    {
+      "id": 2,
+      "nombre": "Usuario",
+      "email": "usuario@example.com",
+      "password": "hashed_password_here",
+      "rol": "user"
+    }
+  ]
+}
