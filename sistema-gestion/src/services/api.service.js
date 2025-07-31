@@ -1,18 +1,22 @@
 import axios from 'axios';
-import { API_BASE_URL, HEADERS } from '../config/api';
 
-// Crear instancia de axios con configuración base
+// Configuración de la API
+const API_BASE_URL = 'http://localhost:5000/api';
+
+// Crear instancia de Axios
 const api = axios.create({
   baseURL: API_BASE_URL,
-  headers: HEADERS
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 // Interceptor para agregar el token de autenticación a las peticiones
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user?.token) {
+      config.headers.Authorization = `Bearer ${user.token}`;
     }
     return config;
   },
@@ -21,27 +25,16 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor para manejar respuestas exitosas
+// Interceptor para manejar respuestas
 api.interceptors.response.use(
-  (response) => {
-    // Puedes modificar la respuesta exitosa aquí si es necesario
-    return response.data;
-  },
+  (response) => response,
   (error) => {
-    const originalRequest = error.config;
-    
-    // Si el error es 401 y no es una solicitud de autenticación
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      // Marcar la solicitud como ya reintentada
-      originalRequest._retry = true;
-      
-      // Limpiar credenciales inválidas
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      
-      // Redirigir a la página de sesión expirada
-      if (window.location.pathname !== '/session-expired') {
-        window.location.href = '/session-expired';
+    // Manejar errores de autenticación
+    if (error.response?.status === 401) {
+      // Redirigir al login si no estamos ya en la página de login
+      if (window.location.pathname !== '/login') {
+        localStorage.removeItem('user');
+        window.location.href = '/login';
       }
     }
     
@@ -51,7 +44,6 @@ api.interceptors.response.use(
                         error.message || 
                         'Error de conexión con el servidor';
     
-    // Crear un nuevo error con el mensaje mejorado
     const apiError = new Error(errorMessage);
     apiError.status = error.response?.status;
     apiError.response = error.response;

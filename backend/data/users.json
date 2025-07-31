@@ -2,17 +2,24 @@
   "users": [
     {
       "id": 1,
-      "nombre": "Admin",
       "email": "admin@example.com",
-      "password": "hashed_password_here",
-      "rol": "admin"
+      "password": "messi123",
+      "nombre": "Administrador",
+      "role": "admin"
     },
     {
       "id": 2,
-      "nombre": "Usuario",
-      "email": "usuario@example.com",
-      "password": "hashed_password_here",
-      "rol": "user"
+      "email": "soporte@example.com",
+      "password": "leomessi10",
+      "nombre": "Técnico de Soporte",
+      "role": "soporte"
+    },
+    {
+      "id": 3,
+      "email": "sucursal@example.com",
+      "password": "eldiegooo",
+      "nombre": "Encargado de Sucursal",
+      "role": "sucursal"
     }
   ]
 }

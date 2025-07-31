@@ -9,14 +9,25 @@
 - [Configuración del Entorno](#configuración-del-entorno)
 - [Instalación](#instalación)
 - [Uso](#uso)
-- [API Documentation](#api-documentation)
+- [Documentación de la API](#documentación-de-la-api)
+- [Roles de Usuario](#roles-de-usuario)
 - [Despliegue](#despliegue)
 - [Contribución](#contribución)
-- [Licencia](#licencia)
 
 ## Descripción General
 
-Sistema de Gestión de Tickets es una aplicación web completa diseñada para gestionar y hacer seguimiento de tickets de soporte. Permite a los usuarios reportar problemas, realizar seguimiento de su estado y comunicarse con el equipo de soporte de manera eficiente.
+Sistema de Gestión de Tickets es una aplicación web completa diseñada para la gestión interna de tickets de soporte técnico. Permite a los usuarios reportar incidencias, realizar seguimiento de su estado y comunicarse con el equipo de soporte de manera eficiente. La aplicación está diseñada para ser utilizada por diferentes tipos de usuarios con distintos niveles de acceso.
+
+## Características Principales
+
+- **Autenticación de usuarios** con diferentes roles (Administrador, Soporte, Sucursal)
+- **Gestión de tickets** con seguimiento de estado
+- **Panel de administración** para gestión de usuarios y configuración
+- **Interfaz intuitiva** y responsiva
+- **Sistema de notificaciones** en tiempo real
+- **Base de datos local** con almacenamiento en archivos JSON
+- **API RESTful** para integración con otros sistemas
+- **Seguridad mejorada** con manejo de sesiones
 
 ## Características Principales
 
@@ -68,76 +79,41 @@ Sistema de Gestión de Tickets es una aplicación web completa diseñada para ge
 ## Estructura del Proyecto
 
 ```
-<<<<<<< HEAD
 sistema_tickets/
 ├── backend/                 # Backend del sistema
-│   ├── config/             # Configuraciones
-│   │   └── db.js           # Configuración de la base de datos
-│   ├── controllers/         # Controladores de la API
-│   │   ├── authController.js
-│   │   ├── ticketController.js
-│   │   └── userController.js
-│   ├── middleware/         # Middleware personalizados
-│   │   └── auth.js         # Middleware de autenticación
-│   ├── models/             # Modelos de MongoDB
-│   │   ├── Ticket.js
-│   │   └── User.js
-│   ├── routes/             # Rutas de la API
-│   │   ├── auth.js
-│   │   ├── tickets.js
-│   │   └── users.js
-│   ├── utils/              # Utilidades
-│   │   └── logger.js       # Configuración de logs
+│   ├── data/               # Archivos JSON de la base de datos
+│   │   ├── tickets.json    # Datos de tickets
+│   │   └── users.json      # Datos de usuarios
+│   ├── services/           # Servicios de la aplicación
+│   │   ├── jsonDB.service.js # Servicio de base de datos JSON
+│   │   ├── ticket.service.js # Lógica de negocio de tickets
+│   │   └── user.service.js  # Lógica de negocio de usuarios
 │   └── server.js           # Punto de entrada del servidor
 │
 ├── sistema-gestion/        # Frontend del sistema
 │   ├── public/             # Archivos estáticos
 │   └── src/
-│       ├── assets/         # Recursos estáticos
+│       ├── assets/         # Recursos estáticos (imágenes, fuentes, etc.)
 │       ├── components/     # Componentes reutilizables
 │       │   ├── auth/       # Componentes de autenticación
-│       │   ├── common/     # Componentes comunes
+│       │   ├── common/     # Componentes comunes (botones, inputs, etc.)
 │       │   ├── dashboard/  # Componentes del dashboard
 │       │   └── tickets/    # Componentes de tickets
 │       ├── config/         # Configuraciones
-│       │   └── api.js      # Configuración de la API
+│       │   └── config.js   # Configuración de la aplicación
 │       ├── context/        # Contextos de React
-│       ├── hooks/          # Custom hooks
-│       ├── layouts/        # Layouts de la aplicación
 │       ├── pages/          # Páginas de la aplicación
+│       │   ├── Login/      # Página de inicio de sesión
+│       │   ├── Dashboard/  # Panel principal
+│       │   └── Tickets/    # Gestión de tickets
 │       ├── services/       # Servicios de la aplicación
-│       │   ├── api.service.js
-│       │   ├── auth.service.js
-│       │   └── ticket.service.js
-│       ├── styles/         # Estilos globales
-│       ├── utils/          # Utilidades
+│       │   ├── api.service.js  # Cliente HTTP
+│       │   └── auth.service.js # Servicio de autenticación
 │       ├── App.jsx         # Componente principal
 │       └── main.jsx        # Punto de entrada
 │
 └── DOCS/                   # Documentación
     └── README.md           # Este archivo
-=======
-SISTEMA/
-├── backend/           # Backend del sistema
-│   ├── config/        # Configuración del backend
-│   ├── controllers/   # Controladores
-│   ├── middleware/    # Middleware
-│   ├── models/        # Modelos de datos
-│   ├── routes/        # Rutas API
-│   ├── scripts/       # Scripts de utilidad
-│   └── server.js      # Punto de entrada del servidor
-├── sistema-gestion/   # Frontend del sistema
-│   ├── src/          # Código fuente
-│   │   ├── components/ # Componentes React
-│   │   │   └── admin/ # Componentes de administrador
-│   │   ├── css/      # Estilos CSS
-│   │   │   ├── components/ # Estilos de componentes
-│   │   │   └── main.css  # Estilos globales
-│   │   ├── pages/    # Páginas principales
-│   │   └── main.jsx  # Punto de entrada React
-│   └── public/       # Archivos estáticos
-└── DOCS/             # Documentación
->>>>>>> 32790c65eb6f51e95eed2dfa2f04f809e849a18c
 ```
 
 ## Configuración del Entorno
