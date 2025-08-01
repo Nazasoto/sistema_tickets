@@ -122,12 +122,6 @@ sistema_tickets/
 
 Crea un archivo `.env` en la raíz del backend con las siguientes variables:
 
-```env
-# Puerto del servidor
-PORT=5000
-
-# Configuración de MongoDB
-MONGODB_URI=mongodb://localhost:27017/tickets_db
 
 # JWT
 JWT_SECRET=tu_clave_secreta_jwt
@@ -210,7 +204,6 @@ npm run lint
 
 ### Backend
 - Node.js 16+
-- MongoDB (local o en memoria)
 - npm o yarn
 
 ### Frontend
