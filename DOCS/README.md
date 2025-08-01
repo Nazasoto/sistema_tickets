@@ -210,7 +210,6 @@ npm run lint
 
 ### Backend
 - Node.js 16+
-- MongoDB (local o en memoria)
 - npm o yarn
 
 ### Frontend
