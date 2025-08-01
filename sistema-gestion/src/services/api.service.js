@@ -27,22 +27,40 @@ api.interceptors.request.use(
 
 // Interceptor para manejar respuestas
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('Respuesta de la API:', response.config.url, response.data);
+    return response;
+  },
   (error) => {
+    console.error('Error en la petición a la API:', {
+      url: error.config?.url,
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message
+    });
+
     // Manejar errores de autenticación
     if (error.response?.status === 401) {
       // Redirigir al login si no estamos ya en la página de login
       if (window.location.pathname !== '/login') {
+        console.log('Redirigiendo al login por error 401');
         localStorage.removeItem('user');
         window.location.href = '/login';
       }
     }
     
     // Proporcionar un mensaje de error más descriptivo
-    const errorMessage = error.response?.data?.message || 
-                        error.response?.data?.error || 
-                        error.message || 
-                        'Error de conexión con el servidor';
+    let errorMessage = 'Error de conexión con el servidor';
+    
+    if (error.response) {
+      // El servidor respondió con un estado fuera del rango 2xx
+      errorMessage = error.response.data?.message || 
+                    error.response.data?.error || 
+                    `Error ${error.response.status}: ${error.response.statusText}`;
+    } else if (error.request) {
+      // La petición fue hecha pero no se recibió respuesta
+      errorMessage = 'No se pudo conectar con el servidor. Verifica tu conexión a internet.';
+    }
     
     const apiError = new Error(errorMessage);
     apiError.status = error.response?.status;

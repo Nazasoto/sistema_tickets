@@ -14,29 +14,48 @@ const Login = ({ onLoginSuccess }) => {
     e.preventDefault();
     setError('');
     
+    console.log('Formulario enviado con:', { 
+      email: email || '(vacío)', 
+      password: password ? '***' : '(vacío)' 
+    });
+    
     // Validación básica
     if (!email || !password) {
+      const errorMsg = `Faltan credenciales - Email: ${email ? 'presente' : 'faltante'}, Contraseña: ${password ? 'presente' : 'faltante'}`;
+      console.error(errorMsg);
       setError('Por favor ingresa tu correo y contraseña');
+      return;
+    }
+    
+    // Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Por favor ingresa un correo electrónico válido');
       return;
     }
     
     setIsLoading(true);
 
     try {
-      const response = await AuthService.login({ email, password });
+      console.log('Intentando iniciar sesión...');
+      const user = await AuthService.login(email, password);
+      console.log('Respuesta del servicio de autenticación:', user);
       
-      if (response && response.token) {
+      if (user) {
+        console.log('Inicio de sesión exitoso, redirigiendo...');
         onLoginSuccess();
         navigate('/dashboard');
       } else {
-        setError('No se pudo iniciar sesión. Por favor, verifica tus credenciales.');
+        const errorMsg = 'No se pudo iniciar sesión. Por favor, verifica tus credenciales.';
+        console.error(errorMsg);
+        setError(errorMsg);
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.msg || 
-                         error.message || 
+      const errorMessage = error.message || 
+                         error.response?.data?.message || 
                          'Error al conectar con el servidor. Por favor, inténtalo de nuevo más tarde.';
-      setError(errorMessage);
       console.error('Error en el inicio de sesión:', error);
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +75,10 @@ const Login = ({ onLoginSuccess }) => {
               id="email"
               className="form-control"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                console.log('Email cambiado a:', e.target.value);
+                setEmail(e.target.value);
+              }}
               required
             />
           </div>
@@ -68,7 +90,10 @@ const Login = ({ onLoginSuccess }) => {
               id="password"
               className="form-control"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                console.log('Contraseña cambiada a:', e.target.value ? '***' : '(vacío)');
+                setPassword(e.target.value);
+              }}
               required
             />
           </div>

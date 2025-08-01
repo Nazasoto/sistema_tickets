@@ -1,10 +1,177 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../../services/auth.service';
 import TicketService from '../../services/ticket.service';
 import './Dashboard.css';
+import './SucursalDashboard.css';
+
+// Componentes de paneles según rol
+const AdminDashboard = ({ stats, recentTickets }) => (
+  <div className="admin-dashboard">
+    <h2>Panel de Administración</h2>
+    <div className="stats-container">
+      <div className="stat-card">
+        <h3>Total de Tickets</h3>
+        <p className="stat-number">{stats.totalTickets}</p>
+      </div>
+      <div className="stat-card">
+        <h3>Abiertos</h3>
+        <p className="stat-number">{stats.openTickets}</p>
+      </div>
+      <div className="stat-card">
+        <h3>En Progreso</h3>
+        <p className="stat-number">{stats.inProgressTickets}</p>
+      </div>
+      <div className="stat-card">
+        <h3>Cerrados</h3>
+        <p className="stat-number">{stats.closedTickets}</p>
+      </div>
+    </div>
+    
+    <div className="recent-tickets">
+      <h3>Tickets Recientes</h3>
+      <div className="tickets-list">
+        {recentTickets.length > 0 ? (
+          recentTickets.map(ticket => (
+            <div key={ticket.id} className="ticket-card">
+              <h4>{ticket.titulo}</h4>
+              <p>Estado: {ticket.estado}</p>
+              <p>Prioridad: {ticket.prioridad}</p>
+              <Link to={`/tickets/${ticket.id}`} className="btn btn-primary">Ver Detalles</Link>
+            </div>
+          ))
+        ) : (
+          <p>No hay tickets recientes.</p>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+const SoporteDashboard = ({ recentTickets, user }) => {
+  const myTickets = recentTickets.filter(t => t.asignadoA === user.id);
+  
+  return (
+    <div className="soporte-dashboard">
+      <h2>Panel de Soporte Técnico</h2>
+      <div className="welcome-message">
+        <p>Bienvenido/a, {user.nombre}</p>
+        <p>Estos son tus tickets asignados:</p>
+      </div>
+      
+      <div className="my-tickets">
+        <h3>Mis Tickets</h3>
+        <div className="tickets-list">
+          {myTickets.length > 0 ? (
+            myTickets.map(ticket => (
+              <div key={ticket.id} className="ticket-card">
+                <h4>{ticket.titulo}</h4>
+                <p>Estado: {ticket.estado}</p>
+                <p>Prioridad: {ticket.prioridad}</p>
+                <Link to={`/tickets/${ticket.id}`} className="btn btn-primary">Ver Detalles</Link>
+              </div>
+            ))
+          ) : (
+            <p>No tienes tickets asignados actualmente.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const SucursalDashboard = ({ user }) => {
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+    AuthService.logout();
+    navigate('/login');
+  };
+
+  const actionCards = [
+    {
+      title: 'Nuevo Ticket',
+      icon: '📝',
+      description: 'Crea un nuevo ticket de soporte',
+      action: () => navigate('/tickets/nuevo'),
+      className: 'card-primary'
+    },
+    {
+      title: 'Chat en Vivo',
+      icon: '💬',
+      description: 'Chatea en tiempo real con soporte',
+      action: () => navigate('/chat'),
+      className: 'card-info'
+    },
+    {
+      title: 'Historial',
+      icon: '📋',
+      description: 'Revisa el historial de tickets',
+      action: () => navigate('/tickets'),
+      className: 'card-success'
+    },
+    {
+      title: 'Configuración',
+      icon: '⚙️',
+      description: 'Ajustes de tu cuenta',
+      action: () => navigate('/configuracion'),
+      className: 'card-warning'
+    },
+    {
+      title: 'Cerrar Sesión',
+      icon: '🚪',
+      description: 'Salir del sistema',
+      action: handleLogout,
+      className: 'card-danger'
+    }
+  ];
+
+  return (
+    <div className="sucursal-dashboard">
+      <div className="dashboard-header">
+        <div className="user-welcome">
+          <h1>¡Hola, {user.nombre}!</h1>
+          <p className="text-muted">¿En qué podemos ayudarte hoy?</p>
+        </div>
+        <div className="sucursal-info">
+          <span className="badge bg-primary">Sucursal: {user.sucursal || 'Principal'}</span>
+        </div>
+      </div>
+      
+      <div className="dashboard-cards">
+        {actionCards.map((card, index) => (
+          <div 
+            key={index} 
+            className={`action-card ${card.className}`}
+            onClick={card.action}
+          >
+            <div className="card-icon">{card.icon}</div>
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+          </div>
+        ))}
+      </div>
+      
+      <div className="quick-stats">
+        <div className="stat-item">
+          <span className="stat-number">5</span>
+          <span className="stat-label">Tickets abiertos</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-number">2</span>
+          <span className="stat-label">En progreso</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-number">12</span>
+          <span className="stat-label">Resueltos este mes</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({
     totalTickets: 0,
@@ -18,33 +185,66 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchDashboardData = async () => {
+      setIsLoading(true);
+      setError('');
+      
       try {
+        console.log('Cargando datos del dashboard...');
+        
         // Obtener datos del usuario
-        const userData = AuthService.getUser();
+        const userData = AuthService.getCurrentUser();
+        if (!userData) {
+          throw new Error('No se encontró la información del usuario. Por favor, inicia sesión nuevamente.');
+        }
         setUser(userData);
 
-        // Simular carga de estadísticas (reemplazar con llamadas reales a la API)
-        setTimeout(() => {
-          setStats({
-            totalTickets: 24,
-            openTickets: 8,
-            inProgressTickets: 12,
-            closedTickets: 4
-          });
+        console.log('Obteniendo tickets...');
+        // Obtener tickets del backend
+        const tickets = await TicketService.getAllTickets();
+        
+        if (!Array.isArray(tickets)) {
+          throw new Error('Formato de datos inválido al cargar los tickets');
+        }
+        
+        console.log(`Se obtuvieron ${tickets.length} tickets`);
+        
+        // Calcular estadísticas
+        const totalTickets = tickets.length;
+        const openTickets = tickets.filter(t => t.estado === 'Abierto').length;
+        const inProgressTickets = tickets.filter(t => t.estado === 'En progreso').length;
+        const closedTickets = tickets.filter(t => t.estado === 'Cerrado').length;
 
-          // Simular tickets recientes
-          setRecentTickets([
-            { id: 1, title: 'Error en el sistema de facturación', status: 'En progreso', priority: 'Alta', date: '2023-11-10' },
-            { id: 2, title: 'Solicitud de nuevo usuario', status: 'Abierto', priority: 'Media', date: '2023-11-09' },
-            { id: 3, title: 'Problema con el inicio de sesión', status: 'Cerrado', priority: 'Alta', date: '2023-11-08' }
-          ]);
+        console.log('Estadísticas calculadas:', { totalTickets, openTickets, inProgressTickets, closedTickets });
+        
+        setStats({
+          totalTickets,
+          openTickets,
+          inProgressTickets,
+          closedTickets
+        });
 
-          setIsLoading(false);
-        }, 1000);
+        // Ordenar tickets por fecha y obtener los más recientes
+        const sortedTickets = [...tickets]
+          .sort((a, b) => {
+            try {
+              return new Date(b.fecha_creacion || 0) - new Date(a.fecha_creacion || 0);
+            } catch (e) {
+              console.error('Error al ordenar tickets por fecha:', e);
+              return 0;
+            }
+          })
+          .slice(0, 5);
 
+        console.log('Tickets recientes:', sortedTickets);
+        setRecentTickets(sortedTickets);
+        
       } catch (error) {
         console.error('Error al cargar el dashboard:', error);
-        setError('Error al cargar los datos del dashboard');
+        const errorMessage = error.response?.data?.message || 
+                         error.message || 
+                         'Error al cargar los datos del dashboard. Verifica tu conexión e intenta de nuevo.';
+        setError(errorMessage);
+      } finally {
         setIsLoading(false);
       }
     };
@@ -52,102 +252,86 @@ const Dashboard = () => {
     fetchDashboardData();
   }, []);
 
+  // Redirigir al login si no hay usuario
+  useEffect(() => {
+    if (!user && !isLoading) {
+      navigate('/login');
+    }
+  }, [user, isLoading, navigate]);
+
   if (isLoading) {
     return (
       <div className="dashboard-loading">
-        <div className="spinner"></div>
-        <p>Cargando dashboard...</p>
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Cargando...</span>
+        </div>
+        <p>Cargando tu panel de control...</p>
       </div>
     );
   }
 
   if (error) {
-    return <div className="alert alert-danger">{error}</div>;
+    return (
+      <div className="dashboard-error">
+        <div className="alert alert-danger">
+          <h4>Error al cargar el dashboard</h4>
+          <p>{error}</p>
+          <button 
+            className="btn btn-primary" 
+            onClick={() => window.location.reload()}
+          >
+            Reintentar
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null; // No mostrar nada mientras se redirige
+  }
+
+  // Renderizar el dashboard según el rol del usuario
+  let dashboardContent;
+  
+  switch(user.role) {
+    case 'admin':
+      dashboardContent = (
+        <AdminDashboard 
+          stats={stats} 
+          recentTickets={recentTickets} 
+        />
+      );
+      break;
+      
+    case 'soporte':
+      dashboardContent = (
+        <SoporteDashboard 
+          recentTickets={recentTickets} 
+          user={user} 
+        />
+      );
+      break;
+      
+    case 'sucursal':
+      dashboardContent = (
+        <SucursalDashboard 
+          user={user} 
+        />
+      );
+      break;
+      
+    default:
+      dashboardContent = (
+        <div className="alert alert-warning">
+          No tienes un rol asignado. Por favor, contacta al administrador.
+        </div>
+      );
   }
 
   return (
     <div className="dashboard">
-      <header className="dashboard-header">
-        <h1>Bienvenido, {user ? user.nombre : 'Usuario'}</h1>
-        <p>Panel de control del sistema de gestión de tickets</p>
-      </header>
-
-      <div className="dashboard-stats">
-        <div className="stat-card">
-          <h3>Total de Tickets</h3>
-          <p className="stat-number">{stats.totalTickets}</p>
-          <Link to="/tickets" className="stat-link">Ver todos</Link>
-        </div>
-
-        <div className="stat-card">
-          <h3>Abiertos</h3>
-          <p className="stat-number open">{stats.openTickets}</p>
-          <Link to="/tickets?status=abierto" className="stat-link">Ver abiertos</Link>
-        </div>
-
-        <div className="stat-card">
-          <h3>En Progreso</h3>
-          <p className="stat-number in-progress">{stats.inProgressTickets}</p>
-          <Link to="/tickets?status=en-progreso" className="stat-link">Ver en progreso</Link>
-        </div>
-
-        <div className="stat-card">
-          <h3>Cerrados</h3>
-          <p className="stat-number closed">{stats.closedTickets}</p>
-          <Link to="/tickets?status=cerrado" className="stat-link">Ver cerrados</Link>
-        </div>
-      </div>
-
-      <div className="recent-tickets">
-        <div className="section-header">
-          <h2>Tickets Recientes</h2>
-          <Link to="/tickets/nuevo" className="btn btn-primary">Nuevo Ticket</Link>
-        </div>
-        
-        {recentTickets.length > 0 ? (
-          <div className="tickets-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Título</th>
-                  <th>Estado</th>
-                  <th>Prioridad</th>
-                  <th>Fecha</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentTickets.map(ticket => (
-                  <tr key={ticket.id}>
-                    <td>#{ticket.id}</td>
-                    <td>{ticket.title}</td>
-                    <td>
-                      <span className={`status-badge ${ticket.status.toLowerCase().replace(' ', '-')}`}>
-                        {ticket.status}
-                      </span>
-                    </td>
-                    <td>
-                      <span className={`priority-badge ${ticket.priority.toLowerCase()}`}>
-                        {ticket.priority}
-                      </span>
-                    </td>
-                    <td>{new Date(ticket.date).toLocaleDateString()}</td>
-                    <td>
-                      <Link to={`/tickets/${ticket.id}`} className="btn-link">Ver</Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="no-tickets">
-            <p>No hay tickets recientes.</p>
-            <Link to="/tickets/nuevo" className="btn btn-primary">Crear mi primer ticket</Link>
-          </div>
-        )}
-      </div>
+      {dashboardContent}
     </div>
   );
 };

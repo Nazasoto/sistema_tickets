@@ -16,6 +16,32 @@ class UserService {
     return await db.findOne('users', { email });
   }
 
+  async validateCredentials(email, password) {
+    const user = await this.getByEmail(email);
+    if (!user) {
+      console.log('No se encontró usuario con el email:', email);
+      return null;
+    }
+    
+    console.log('Usuario encontrado, validando contraseña...');
+    console.log('Contraseña almacenada (hash):', user.password ? '***' : 'no definida');
+    
+    // Como las contraseñas en el JSON están en texto plano, comparamos directamente
+    // Si en el futuro se implementa hashing, usar: await bcrypt.compare(password, user.password);
+    const isPasswordValid = (user.password === password);
+    
+    if (!isPasswordValid) {
+      console.log('Contraseña incorrecta');
+      return null;
+    }
+    
+    console.log('Credenciales válidas para el usuario:', user.email);
+    
+    // Devolver el usuario sin la contraseña
+    const { password: _, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
   async create(userData) {
     // Verificar si el usuario ya existe
     const existingUser = await this.getByEmail(userData.email);
@@ -66,22 +92,6 @@ class UserService {
       throw new Error('Usuario no encontrado');
     }
     return await db.delete('users', id);
-  }
-
-  async validateCredentials(email, password) {
-    const user = await this.getByEmail(email);
-    if (!user) {
-      return null;
-    }
-
-    const isValid = await bcrypt.compare(password, user.password);
-    if (!isValid) {
-      return null;
-    }
-
-    // No devolver la contraseña
-    const { password: _, ...userWithoutPassword } = user;
-    return userWithoutPassword;
   }
 }
 
