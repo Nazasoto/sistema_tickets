@@ -104,6 +104,13 @@ const SucursalDashboard = ({ user }) => {
       className: 'card-info'
     },
     {
+      title: 'NOTICIAS',
+      icon: '🔔',
+      description: 'Revisa las noticias',
+      action: () => navigate('/tickets'),
+      className: 'card-noticias'
+    },
+    {
       title: 'Historial',
       icon: '📋',
       description: 'Revisa el historial de tickets',
