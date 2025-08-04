@@ -1,7 +1,7 @@
 import api from './api.service';
 import { API_ENDPOINTS } from '../config/api';
 
-const TicketService = {
+export const TicketService = {
   // Obtener todos los tickets
   async getAllTickets() {
     try {
@@ -68,5 +68,3 @@ const TicketService = {
     }
   }
 };
-
-export default TicketService;
