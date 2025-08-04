@@ -11,6 +11,7 @@ import SessionExpired from './components/auth/SessionExpired';
 import Dashboard from './components/dashboard/Dashboard';
 import Tickets from './components/tickets/Tickets';
 import TicketDetail from './components/tickets/TicketDetail';
+import NewTicket from './components/tickets/NewTicket';
 import Profile from './components/user/Profile';
 import NotFound from './components/common/NotFound';
 import LoadingSpinner from './components/common/LoadingSpinner';
@@ -97,6 +98,12 @@ const App = () => {
           <Route path="/tickets" element={
             <ProtectedRoute>
               <Tickets />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/tickets/nuevo" element={
+            <ProtectedRoute>
+              <NewTicket />
             </ProtectedRoute>
           } />
 

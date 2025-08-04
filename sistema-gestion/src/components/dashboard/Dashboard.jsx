@@ -90,44 +90,38 @@ const SucursalDashboard = ({ user }) => {
 
   const actionCards = [
     {
-      title: 'Nuevo Ticket',
+      title: 'CREAR TICKET',
       icon: '📝',
-      description: 'Crea un nuevo ticket de soporte',
       action: () => navigate('/tickets/nuevo'),
       className: 'card-primary'
     },
     {
-      title: 'Chat en Vivo',
+      title: 'CHAT',
       icon: '💬',
-      description: 'Chatea en tiempo real con soporte',
       action: () => navigate('/chat'),
       className: 'card-info'
     },
     {
-      title: 'NOTICIAS',
-      icon: '🔔',
-      description: 'Revisa las noticias',
+      title: 'NOTIFICACIONES',
+      icon: '📢',
       action: () => navigate('/tickets'),
       className: 'card-noticias'
     },
     {
-      title: 'Historial',
+      title: 'HISTORIAL',
       icon: '📋',
-      description: 'Revisa el historial de tickets',
       action: () => navigate('/tickets'),
       className: 'card-success'
     },
     {
-      title: 'Configuración',
+      title: 'CONFIGURACION',
       icon: '⚙️',
-      description: 'Ajustes de tu cuenta',
       action: () => navigate('/configuracion'),
       className: 'card-warning'
     },
     {
-      title: 'Cerrar Sesión',
+      title: 'CERRAR SESION',
       icon: '🚪',
-      description: 'Salir del sistema',
       action: handleLogout,
       className: 'card-danger'
     }
@@ -154,7 +148,6 @@ const SucursalDashboard = ({ user }) => {
           >
             <div className="card-icon">{card.icon}</div>
             <h3>{card.title}</h3>
-            <p>{card.description}</p>
           </div>
         ))}
       </div>

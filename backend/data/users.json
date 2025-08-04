@@ -2,21 +2,21 @@
   "users": [
     {
       "id": 1,
-      "email": "admin@example.com",
+      "email": "admin@ejemplo.com",
       "password": "messi123",
       "nombre": "Administrador",
       "role": "admin"
     },
     {
       "id": 2,
-      "email": "soporte@example.com",
+      "email": "soporte@ejemplo.com",
       "password": "leomessi10",
       "nombre": "Técnico de Soporte",
       "role": "soporte"
     },
     {
       "id": 3,
-      "email": "sucursal@example.com",
+      "email": "sucursal@ejemplo.com",
       "password": "eldiegooo",
       "nombre": "Encargado de Sucursal",
       "role": "sucursal"
