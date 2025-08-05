@@ -9,14 +9,19 @@
     "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["tickets", "soporte", "node", "express"],
+  "keywords": [
+    "tickets",
+    "soporte",
+    "node",
+    "express"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
-    "express": "^4.18.2"
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

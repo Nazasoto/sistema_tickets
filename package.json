@@ -1,0 +1,13 @@
+{
+  "name": "sistema-tickets",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de tickets",
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd sistema-gestion && npm run dev\"",
+    "build": "cd sistema-gestion && npm run build",
+    "start": "cd backend && npm run start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}

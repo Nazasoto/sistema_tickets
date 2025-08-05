@@ -15,6 +15,13 @@ const __dirname = dirname(__filename);
 const app = express();
 
 // Middlewares
+// Servir archivos estáticos del frontend en producción
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(join(__dirname, '../sistema-gestion/dist')));
+    app.get('*', (req, res) => {
+        res.sendFile(join(__dirname, '../sistema-gestion/dist/index.html'));
+    });
+}
 app.use(cors());
 app.use(express.json());
 
