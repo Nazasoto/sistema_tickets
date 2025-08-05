@@ -76,7 +76,6 @@ const Login = ({ onLoginSuccess }) => {
               className="form-control"
               value={email}
               onChange={(e) => {
-                console.log('Email cambiado a:', e.target.value);
                 setEmail(e.target.value);
               }}
               required

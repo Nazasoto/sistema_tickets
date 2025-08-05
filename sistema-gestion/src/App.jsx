@@ -9,7 +9,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import SessionExpired from './components/auth/SessionExpired';
 import Dashboard from './components/dashboard/Dashboard';
-import Tickets from './components/tickets/Tickets';
+import TicketsList from './components/tickets/TicketsList';
 import TicketDetail from './components/tickets/TicketDetail';
 import NewTicket from './components/tickets/NewTicket';
 import Profile from './components/user/Profile';
@@ -97,7 +97,7 @@ const App = () => {
 
           <Route path="/tickets" element={
             <ProtectedRoute>
-              <Tickets />
+              <TicketsList />
             </ProtectedRoute>
           } />
 

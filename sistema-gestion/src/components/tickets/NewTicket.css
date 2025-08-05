@@ -13,14 +13,18 @@
 
 /* Contenedor principal */
 .new-ticket-container {
-  max-width: 720px;
-  margin: 2rem auto;
-  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
   background: var(--surface-color);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgb(0 0 0 / 0.06);
   border: 1px solid var(--border-color);
   font-family: var(--font-family);
+  padding: 1.5rem;
 }
 
 /* Mensajes */
@@ -48,11 +52,14 @@
 /* Formulario */
 .ticket-form {
   display: grid;
+  place-items: center;
   gap: 1.2rem;
+  width: 100%;
 }
 
 /* Secciones */
 .form-section {
+  width: 50%;
   background: var(--background-color);
   padding: 1.1rem 1.3rem;
   border-radius: 10px;
@@ -206,7 +213,7 @@ textarea {
 
 button {
   padding: 0.62rem 1.35rem;
-  font-size: 0.9rem;
+  font-size: 2rem;
   font-weight: 700;
   border-radius: 8px;
   border: none;
@@ -234,23 +241,42 @@ button:not(:disabled):hover {
 
 /* Botón crear */
 button[type="submit"] {
+  text-decoration: none;
   background-color: var(--primary-color);
   color: white;
 }
 
+
 button[type="submit"]:hover:not(:disabled) {
+  transition: all 0.2s ease;
+  color: white;
   background-color: var(--primary-hover);
-  box-shadow: 0 3px 8px rgb(37 99 235 / 0.3);
+  box-shadow: 0 3px 8px rgb(255, 244, 244);
 }
 
 /* Botón cancelar */
 .cancel-button {
-  background-color: #6b7280;
-  color: white;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background-color: #000000;
+  color: #e5e7eb;
 }
 
 .cancel-button:hover:not(:disabled) {
-  background-color: #4b5563;
+  background-color: #ff0000;
+  color: #e5e7eb;
+}
+
+button[type="button"] {
+  transition: all 0.2s ease;
+  color: rgba(0, 0, 0, 0.781);
+  text-decoration: none;
+}
+
+button[type="button"]:hover:not(:disabled) {
+  transition: all 0.2s ease;
+  background-color: #ff0000;
+  color: #e5e7eb;
 }
 
 /* Responsive */
