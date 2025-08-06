@@ -17,8 +17,15 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(cors());
-app.use(express.json());
+
+// Servir archivos estáticos del frontend
+const frontendPath = join(__dirname, '../sistema-gestion/dist');
+app.use(express.static(frontendPath));
+
+// Middleware para manejar rutas de API
+app.use('/api', (req, res, next) => {
+  next();
+});
 
 // Crear directorio de datos si no existe
 const dataDir = join(__dirname, 'data');
@@ -123,10 +130,15 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ error: message });
 });
 
+// Middleware para manejar rutas de SPA
+app.get('*', (req, res) => {
+  res.sendFile(join(frontendPath, 'index.html'));
+});
+
 // Iniciar servidor
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`\n🚀 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
   console.log(`📂 Directorio de datos: ${dataDir}`);
   console.log('\nEndpoints disponibles:');
   console.log(`- POST   http://localhost:${PORT}/api/auth/login`);

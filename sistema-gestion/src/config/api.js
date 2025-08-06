@@ -1,5 +1,6 @@
 // Configuración base de la API
-export const API_BASE_URL = 'http://localhost:5000/api';
+// Usamos ruta relativa para que funcione tanto en desarrollo como en producción
+export const API_BASE_URL = '/api';
 
 export const API_ENDPOINTS = {
   AUTH: {
