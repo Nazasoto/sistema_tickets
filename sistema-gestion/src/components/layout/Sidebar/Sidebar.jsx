@@ -12,9 +12,9 @@ const menuItems = [
   },
   { 
     id: 2, 
-    title: 'Informes', 
-    icon: '📋',
-    path: '/soporte/informes'  
+    title: 'Noticias', 
+    icon: '📢',
+    path: '/soporte/noticias'  
   },
   { 
     id: 3, 

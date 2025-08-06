@@ -185,60 +185,6 @@ const NewTicket = () => {
       {error && <div className="error-message">{error}</div>}
 
       <form onSubmit={handleSubmit(onSubmit)} className="ticket-form">
-
-        {/* --- Aquí los campos igual que antes --- */}
-
-        <div className="form-section">
-          <h3>Datos del Solicitante</h3>
-          <div className="form-group">
-            <label htmlFor="nombre">Nombre *</label>
-            <input id="nombre" {...register('nombre')} type="text" placeholder="Nombre" />
-            {errors.nombre && <p className="error-text">{errors.nombre.message}</p>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="segundoNombre">Segundo Nombre (opcional)</label>
-            <input id="segundoNombre" {...register('segundoNombre')} type="text" placeholder="Segundo nombre" />
-            {errors.segundoNombre && <p className="error-text">{errors.segundoNombre.message}</p>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="apellido">Apellido *</label>
-            <input id="apellido" {...register('apellido')} type="text" placeholder="Apellido" />
-            {errors.apellido && <p className="error-text">{errors.apellido.message}</p>}
-          </div>
-        </div>
-
-        {/* --- Campos para la ubicación --- */}
-        <div className="form-section">
-          <h3>Ubicación</h3>
-          <div className="form-group">
-            <label htmlFor="sucursal">Sucursal *</label>
-            <input id="sucursal" {...register('sucursal')} type="text" placeholder="Sucursal" />
-            {errors.sucursal && <p className="error-text">{errors.sucursal.message}</p>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="ciudad">Ciudad *</label>
-            <input id="ciudad" {...register('ciudad')} type="text" placeholder="Ciudad" />
-            {errors.ciudad && <p className="error-text">{errors.ciudad.message}</p>}
-          </div>
-        </div>
-
-        {/* --- Campos para el contacto --- */}
-        <div className="form-section">
-          <h3>Contacto</h3>
-          <div className="form-group">
-            <label htmlFor="correo">Correo Electrónico *</label>
-            <input id="correo" {...register('correo')} type="email" placeholder="correo@palmaresltd.com.ar" />
-            {errors.correo && <p className="error-text">{errors.correo.message}</p>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="telefono">Teléfono *</label>
-            <input id="telefono" {...register('telefono')} type="tel" placeholder="+5434..." />
-            {errors.telefono && <p className="error-text">{errors.telefono.message}</p>}
-          </div>
-        </div>
-
         {/* --- Campos para el detalle del problema --- */}
         <div className="form-section">
           <h3>Detalle del Problema</h3>
