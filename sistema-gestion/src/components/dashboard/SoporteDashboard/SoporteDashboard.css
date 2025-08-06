@@ -1,0 +1,274 @@
+/* SoporteDashboard.css */
+.soporte-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+/* Botón de menú móvil */
+.mobile-menu-btn {
+  display: none; /* Oculto por defecto en desktop */
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Contenido principal */
+.soporte-main-content {
+  flex: 1;
+  margin-left: 250px; /* Igual al ancho del sidebar */
+  transition: margin 0.3s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header del contenido */
+.soporte-header {
+  background: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.soporte-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+/* Información del usuario en el header */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.9rem;
+}
+
+.user-role {
+  color: #7f8c8d;
+  font-size: 0.8rem;
+}
+
+/* Área de contenido */
+.soporte-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f5f7fa;
+  overflow-y: auto;
+}
+
+/* Estilos responsivos */
+@media (max-width: 992px) {
+  .soporte-main-content {
+    margin-left: 0;
+  }
+  
+  .sidebar.collapsed + .soporte-main-content {
+    margin-left: 70px;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  .soporte-header {
+    padding: 1rem;
+  }
+  
+  .soporte-content {
+    padding: 1rem;
+  }
+}
+
+/* Estilos para el contenido de las páginas */
+.page-container {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+/* Estilos para los títulos de sección */
+.section-title {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f0f2f5;
+}
+
+/* Estilos para las tarjetas */
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Estilos para los botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: #3498db;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2980b9;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #3498db;
+  color: #3498db;
+}
+
+.btn-outline:hover {
+  background: rgba(52, 152, 219, 0.1);
+}
+
+/* Estilos para los formularios */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Estilos para las tablas */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.table tr:hover {
+  background: #f8f9fa;
+}
+
+/* Estilos para los badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-primary {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.badge-success {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.badge-warning {
+  background: #fff8e1;
+  color: #f57c00;
+}
+
+.badge-danger {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+
+.btn-primary:hover {
+  background: #27ae60;
+}
+
+/* Estado de los tickets */
+.ticket-card[data-estado="Abierto"] {
+  border-left: 4px solid #e74c3c;
+}
+
+.ticket-card[data-estado="En Progreso"] {
+  border-left: 4px solid #f39c12;
+}
+
+.ticket-card[data-estado="Resuelto"] {
+  border-left: 4px solid #2ecc71;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tickets-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .soporte-dashboard {
+    padding: 10px;
+  }
+}

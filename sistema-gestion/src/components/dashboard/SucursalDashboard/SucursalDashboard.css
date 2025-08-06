@@ -1,0 +1,186 @@
+/* SucursalDashboard.css */
+.sucursal-dashboard {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.user-welcome h1 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.text-muted {
+  color: #7f8c8d;
+  margin: 5px 0 0 0;
+  font-size: 1rem;
+}
+
+.sucursal-info .badge {
+  background-color: #3498db;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.action-card {
+  background: white;
+  border-radius: 10px;
+  padding: 25px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+}
+
+.action-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.action-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+/* Card Colors */
+.card-primary {
+  border-top: 4px solid #3498db;
+}
+
+.card-primary:hover {
+  background-color: #f8fafd;
+}
+
+.card-info {
+  border-top: 4px solid #2ecc71;
+}
+
+.card-info:hover {
+  background-color: #f1f9f5;
+}
+
+.card-noticias {
+  border-top: 4px solid #e74c3c;
+}
+
+.card-noticias:hover {
+  background-color: #fef6f5;
+}
+
+.card-success {
+  border-top: 4px solid #f39c12;
+}
+
+.card-success:hover {
+  background-color: #fef9e7;
+}
+
+.card-warning {
+  border-top: 4px solid #9b59b6;
+}
+
+.card-warning:hover {
+  background-color: #f8f5fb;
+}
+
+.card-danger {
+  border-top: 4px solid #e74c3c;
+}
+
+.card-danger:hover {
+  background-color: #fef6f5;
+}
+
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.stat-item {
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .sucursal-info {
+    margin-top: 15px;
+  }
+  
+  .dashboard-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .quick-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .user-welcome h1 {
+    font-size: 1.5rem;
+  }
+}

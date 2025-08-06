@@ -4,21 +4,21 @@
       "id": 1,
       "email": "admin@ejemplo.com",
       "password": "messi123",
-      "nombre": "Administrador",
+      "nombre": "CRACK",
       "role": "admin"
     },
     {
       "id": 2,
       "email": "soporte@ejemplo.com",
       "password": "soporte123",
-      "nombre": "Técnico de Soporte",
+      "nombre": "NAZARENO SOTO",
       "role": "soporte"
     },
     {
       "id": 3,
       "email": "sucursal@ejemplo.com",
       "password": "sucursal123",
-      "nombre": "Encargado de Sucursal",
+      "nombre": "NAZARENO",
       "role": "sucursal"
     }
   ]

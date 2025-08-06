@@ -3,7 +3,7 @@ import React from "react";
 //ort Login from "./logs/Login";
 //import Register from "./logs/Register";
 //import AdminPanel from "../pages/AdminPanel";
-import SoportePanel from "../pages/SoportePanel";
+import Dashboard from "../components/dashboard/Dashboard";
 import NavBar from "./NavBarLogic";
 
 
@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div>
       <NavBar />
-      <SoportePanel />
+      <Dashboard />
     </div>
   );
 };

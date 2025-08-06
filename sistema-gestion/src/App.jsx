@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import AuthService from './services/auth.service';
 import './css/main.css';
@@ -15,6 +15,14 @@ import NewTicket from './components/tickets/NewTicket';
 import Profile from './components/user/Profile';
 import NotFound from './components/common/NotFound';
 import LoadingSpinner from './components/common/LoadingSpinner';
+
+// Componentes de Soporte
+import SoporteDashboard from './components/dashboard/SoporteDashboard/SoporteDashboard';
+import BandejaPage from './pages/soporte/bandeja';
+import MisTicketsPage from './pages/soporte/mis-tickets';
+import HistorialPage from './pages/soporte/historial';
+import ChatPage from './pages/soporte/chat';
+import ConfiguracionPage from './pages/soporte/configuracion';
 
 // Componente de ruta protegida
 const ProtectedRoute = ({ children }) => {
@@ -94,6 +102,20 @@ const App = () => {
               <Dashboard />
             </ProtectedRoute>
           } />
+
+          {/* Rutas del Dashboard de Soporte */}
+          <Route path="/soporte" element={
+            <ProtectedRoute>
+              <SoporteDashboard />
+            </ProtectedRoute>
+          }>
+            <Route index element={<Navigate to="bandeja" replace />} />
+            <Route path="bandeja" element={<BandejaPage />} />
+            <Route path="mis-tickets" element={<MisTicketsPage />} />
+            <Route path="historial" element={<HistorialPage />} />
+            <Route path="chat" element={<ChatPage />} />
+            <Route path="configuracion" element={<ConfiguracionPage />} />
+          </Route>
 
           <Route path="/tickets" element={
             <ProtectedRoute>
