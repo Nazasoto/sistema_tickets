@@ -15,24 +15,8 @@ const __dirname = dirname(__filename);
 const app = express();
 
 // Middlewares
-// Servir archivos estáticos del frontend en producción
-const frontendDir = process.env.NODE_ENV === 'production' 
-  ? join(__dirname, '../sistema-gestion/dist')
-  : join(__dirname, '../sistema-gestion');
-
-app.use(express.static(frontendDir));
-
-// Manejar rutas de producción
-if (process.env.NODE_ENV === 'production') {
-    app.get('*', (req, res) => {
-        try {
-            res.sendFile(join(frontendDir, 'index.html'));
-        } catch (error) {
-            console.error('Error serving index.html:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    });
-}
+app.use(cors());
+app.use(express.json());
 app.use(cors());
 app.use(express.json());
 

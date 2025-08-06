@@ -1,11 +1,10 @@
 {
   "builds": [
     {
-      "src": "sistema-gestion",
+      "src": "sistema-gestion/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
-        "framework": "vite"
+        "distDir": "dist"
       }
     },
     {
@@ -15,8 +14,12 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
       "dest": "backend/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 }
