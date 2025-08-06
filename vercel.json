@@ -2,10 +2,13 @@
   "version": 2,
   "builds": [
     {
-      "src": "sistema-gestion/package.json",
+      "src": "sistema-gestion",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "dist",
+        "framework": "vite",
+        "installCommand": "npm install",
+        "buildCommand": "npm run build"
       }
     },
     {
@@ -20,7 +23,8 @@
     },
     {
       "src": "^/(.*)$",
-      "dest": "/$1"
+      "dest": "/$1",
+      "check": true
     }
   ]
 }
