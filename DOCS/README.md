@@ -1,5 +1,9 @@
 # Sistema de Gestión de Tickets
 
+[![React](https://img.shields.io/badge/React-19.1.0-61DAFB?logo=react)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.0.4-646CFF?logo=vite)](https://vitejs.dev/)
+[![React Router](https://img.shields.io/badge/React_Router-7.7.1-CA4245?logo=react-router)](https://reactrouter.com/)
+
 ## Tabla de Contenidos
 
 - [Descripción General](#descripción-general)
@@ -55,17 +59,21 @@ Sistema de Gestión de Tickets es una aplicación web completa diseñada para la
 ## Tecnologías Utilizadas
 
 ### Frontend
-- React 19.1.0
-- React Router DOM 7.7.1
-- Vite 7.0.4
-- Axios para peticiones HTTP
-- Context API para gestión de estado global
-- CSS Modules para estilos modulares
+- **React 19.1.0** - Biblioteca principal para la interfaz de usuario
+- **Vite 7.0.4** - Herramienta de construcción y desarrollo
+- **React Router DOM 7.7.1** - Enrutamiento de la aplicación
+- **Axios 1.11.0** - Cliente HTTP para peticiones a la API
+- **React Hook Form 7.62.0** - Manejo de formularios
+- **Yup 1.7.0** - Validación de esquemas
+- **JWT Decode** - Manejo de tokens JWT
+- **CSS Modules** para estilos modulares
 
 ### Backend
-- Node.js 18+
-- Express.js
-- MongoDB con Mongoose
+- **Node.js** - Entorno de ejecución
+- **Express** - Framework para el servidor web
+- **JSON Web Tokens (JWT)** - Autenticación y autorización
+- **File System (fs)** - Manejo de archivos JSON como base de datos
+- MongoDB con Mongoose (Se desea cambiar a SQLserver)
 - JWT para autenticación
 - Bcrypt para hashing de contraseñas
 - Winston para logging
@@ -114,6 +122,10 @@ sistema_tickets/
 │
 └── DOCS/                   # Documentación
     └── README.md           # Este archivo
+└── api/                   # Documentación de la API
+    └── auth/           # Componentes de autenticación
+    └── tickets/           # Componentes de tickets
+    └── users/           # Componentes de usuarios
 ```
 
 ## Configuración del Entorno
@@ -124,7 +136,7 @@ Crea un archivo `.env` en la raíz del backend con las siguientes variables:
 
 
 # JWT
-JWT_SECRET=tu_clave_secreta_jwt
+JWT_SECRET=MESSI_DIOS
 JWT_EXPIRES_IN=30d
 
 # Configuración de correo (opcional)
@@ -246,28 +258,6 @@ npm run lint
 
 ### Desarrollo
 
-1. **Iniciar el servidor de desarrollo del backend**
-   ```bash
-   cd backend
-   npm run dev
-   ```
-
-2. **Iniciar el servidor de desarrollo del frontend**
-   ```bash
-   cd ../sistema-gestion
-   npm run dev
-   ```
-
-3. **Acceder a la aplicación**
-   Abre tu navegador en [http://localhost:5173](http://localhost:5173)
-
-### Producción
-
-1. **Construir la aplicación para producción**
-   ```bash
-   cd sistema-gestion
-   npm run build
-   ```
 
 <<<<<<< HEAD
 2. **Iniciar el servidor en producción**
@@ -341,6 +331,7 @@ El sistema puede ser desplegado en:
 - AWS Elastic Beanstalk
 - Google Cloud Run
 - Microsoft Azure App Service
+- DigitalOcean
 
 ## Contribución
 
