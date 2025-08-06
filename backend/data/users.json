@@ -10,14 +10,14 @@
     {
       "id": 2,
       "email": "soporte@ejemplo.com",
-      "password": "leomessi10",
+      "password": "soporte123",
       "nombre": "Técnico de Soporte",
       "role": "soporte"
     },
     {
       "id": 3,
       "email": "sucursal@ejemplo.com",
-      "password": "eldiegooo",
+      "password": "sucursal123",
       "nombre": "Encargado de Sucursal",
       "role": "sucursal"
     }

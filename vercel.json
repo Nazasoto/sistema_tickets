@@ -6,20 +6,18 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist",
-        "framework": "vite",
-        "installCommand": "npm install",
-        "buildCommand": "npm run build"
+        "framework": "vite"
       }
     },
     {
-      "src": "backend/server.js",
+      "src": "api/**/*.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "backend/server.js"
+      "dest": "/api/$1"
     },
     {
       "src": "^/(.*)$",
