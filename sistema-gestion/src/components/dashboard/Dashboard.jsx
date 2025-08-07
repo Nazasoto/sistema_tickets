@@ -42,16 +42,27 @@ const Dashboard = () => {
         const tickets = await TicketService.getAllTickets();
         
         if (!Array.isArray(tickets)) {
-          throw new Error('Formato de datos inválido al cargar los tickets');
+          setError('No se pudieron cargar los tickets (formato inválido).');
+          setStats({ totalTickets: 0, openTickets: 0, inProgressTickets: 0, closedTickets: 0 });
+          setRecentTickets([]);
+          setIsLoading(false);
+          return;
+        }
+        if (tickets.length === 0) {
+          setError('No hay tickets registrados en el sistema.');
+          setStats({ totalTickets: 0, openTickets: 0, inProgressTickets: 0, closedTickets: 0 });
+          setRecentTickets([]);
+          setIsLoading(false);
+          return;
         }
         
         console.log(`Se obtuvieron ${tickets.length} tickets`);
         
-        // Calcular estadísticas
+        // Calcular estadísticas de forma robusta (insensible a mayúsculas)
         const totalTickets = tickets.length;
-        const openTickets = tickets.filter(t => t.estado === 'Abierto').length;
-        const inProgressTickets = tickets.filter(t => t.estado === 'En progreso').length;
-        const closedTickets = tickets.filter(t => t.estado === 'Cerrado').length;
+        const openTickets = tickets.filter(t => (t.estado || '').toLowerCase() === 'abierto').length;
+        const inProgressTickets = tickets.filter(t => (t.estado || '').toLowerCase() === 'en_progreso' || (t.estado || '').toLowerCase() === 'en progreso').length;
+        const closedTickets = tickets.filter(t => (t.estado || '').toLowerCase() === 'cerrado').length;
 
         console.log('Estadísticas calculadas:', { totalTickets, openTickets, inProgressTickets, closedTickets });
         

@@ -1,6 +1,6 @@
 // Configuración base de la API
 // Usamos ruta relativa para que funcione tanto en desarrollo como en producción
-export const API_BASE_URL = '/api';
+export const API_BASE_URL = "/api";
 
 export const API_ENDPOINTS = {
   AUTH: {
