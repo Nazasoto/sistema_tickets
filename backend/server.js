@@ -19,9 +19,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Servir archivos estáticos del frontend
-const frontendPath = join(__dirname, '../sistema-gestion/dist');
-app.use(express.static(frontendPath));
+// Deshabilitar archivos estáticos del frontend en producción
+// const frontendPath = join(__dirname, '../sistema-gestion/dist');
+// app.use(express.static(frontendPath));
 
 // Middleware para manejar rutas de API
 app.use('/api/noticias', noticiasRouter);
