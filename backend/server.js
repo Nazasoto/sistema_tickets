@@ -8,6 +8,7 @@ import fs from 'fs/promises';
 // Importar servicios
 import userService from './services/user.service.js';
 import ticketService from './services/ticket.service.js';
+import noticiasRouter from './noticias.routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,9 +24,7 @@ const frontendPath = join(__dirname, '../sistema-gestion/dist');
 app.use(express.static(frontendPath));
 
 // Middleware para manejar rutas de API
-app.use('/api', (req, res, next) => {
-  next();
-});
+app.use('/api/noticias', noticiasRouter);
 
 // Crear directorio de datos si no existe
 const dataDir = join(__dirname, 'data');
