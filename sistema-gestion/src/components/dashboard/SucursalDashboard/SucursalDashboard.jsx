@@ -27,7 +27,7 @@ const SucursalDashboard = ({ user = {} }) => {
     {
       title: 'NOTIFICACIONES',
       icon: '📢',
-      action: () => navigate('/notificaciones'),
+      action: () => navigate('/dashboard/sucursal/notificaciones'),
       className: 'card-noticias'
     },
     {

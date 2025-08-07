@@ -24,6 +24,8 @@ import MisTicketsPage from './pages/soporte/mis-tickets';
 import HistorialPage from './pages/soporte/historial';
 import ChatPage from './pages/soporte/chat';
 import ConfiguracionPage from './pages/soporte/configuracion';
+import NoticiasPage from './pages/soporte/noticias';
+import SucursalNotificacionesPage from './pages/sucursal/notificaciones';
 
 // Componente de ruta protegida
 const ProtectedRoute = ({ children }) => {
@@ -112,10 +114,22 @@ const App = () => {
           }>
             <Route index element={<Navigate to="bandeja" replace />} />
             <Route path="bandeja" element={<BandejaPage />} />
+            <Route path="noticias" element={<NoticiasPage />} />
             <Route path="mis-tickets" element={<MisTicketsPage />} />
             <Route path="historial" element={<HistorialPage />} />
             <Route path="chat" element={<ChatPage />} />
             <Route path="configuracion" element={<ConfiguracionPage />} />
+          </Route>
+
+          {/* Dashboard de sucursal y subrutas, solo para sucursal */}
+          <Route path="/dashboard/sucursal" element={
+            <RoleProtectedRoute allowedRoles={['sucursal']}>
+              {/* Aquí va el layout/dashboard de sucursal */}
+              <Outlet />
+            </RoleProtectedRoute>
+          }>
+            <Route path="notificaciones" element={<SucursalNotificacionesPage />} />
+            {/* Puedes agregar más subrutas aquí si lo necesitas */}
           </Route>
 
           {/* Tickets, solo para soporte y admin */}
@@ -126,13 +140,13 @@ const App = () => {
           } />
 
           <Route path="/tickets/nuevo" element={
-            <RoleProtectedRoute allowedRoles={['soporte', 'admin']}>
+            <RoleProtectedRoute allowedRoles={['soporte', 'admin', 'sucursal']}>
               <NewTicket />
             </RoleProtectedRoute>
           } />
 
           <Route path="/tickets/:id" element={
-            <RoleProtectedRoute allowedRoles={['soporte', 'admin']}>
+            <RoleProtectedRoute allowedRoles={['soporte', 'admin', 'sucursal']}>
               <TicketDetail />
             </RoleProtectedRoute>
           } />

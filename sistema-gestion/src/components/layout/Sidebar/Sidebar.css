@@ -61,21 +61,69 @@
 .nav-item {
   display: flex;
   align-items: center;
-  padding: 12px 20px;
+  padding: 14px 22px;
   color: #ecf0f1;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.25s cubic-bezier(.4,0,.2,1);
   position: relative;
   white-space: nowrap;
+  font-size: 1.08rem;
+  margin-bottom: 4px;
+  border-radius: 8px 0 0 8px;
 }
 
+/* Iconos más grandes y separados */
+.nav-icon {
+  font-size: 1.45rem;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* Título con mejor peso */
+.nav-title {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Badge más visible */
+.nav-badge {
+  background: #e74c3c;
+  color: #fff;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 2px 8px;
+  margin-left: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  display: inline-block;
+}
+
+/* Hover más notorio */
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  background: #2980b9;
+  color: #fff;
+  transform: translateX(2px) scale(1.03);
+  box-shadow: 2px 4px 12px rgba(41,128,185,0.08);
 }
 
+/* Activo con contraste y sombra */
 .nav-item.active {
-  background: #3498db;
-  border-left: 4px solid #fff;
+  background: linear-gradient(90deg, #3498db 80%, #2980b9 100%);
+  border-radius: 50px;
+  color: #fff;
+  box-shadow: 2px 6px 18px rgba(41,128,185,0.13);
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(.4,0,.2,1);
+  transform: scale(1.04);
+}
+
+/* Mejor separación entre items */
+.sidebar-nav {
+  flex: 1;
+  padding: 18px 0 12px 0;
+  overflow-y: auto;
 }
 
 /* Iconos */

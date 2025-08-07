@@ -108,6 +108,62 @@ app.post('/api/tickets', async (req, res, next) => {
   }
 });
 
+// --- NOTICIAS EN MEMORIA ---
+let noticias = [];
+let nextId = 1;
+
+// GET /api/noticias
+app.get('/api/noticias', (req, res) => {
+  res.json(noticias);
+});
+
+// POST /api/noticias
+app.post('/api/noticias', (req, res) => {
+  const { titulo, descripcion, autor, fecha, imagen, archivoNombre, links } = req.body;
+  if (!titulo || !descripcion) {
+    return res.status(400).json({ error: 'Título y descripción requeridos' });
+  }
+  const noticia = {
+    id: nextId++,
+    titulo,
+    descripcion,
+    autor: autor || 'soporte',
+    fecha: fecha || new Date().toISOString().slice(0,10),
+    imagen: imagen || '',
+    archivoNombre: archivoNombre || '',
+    links: links || [],
+    archivada: false
+  };
+  noticias.unshift(noticia);
+  res.status(201).json(noticia);
+});
+
+// PATCH /api/noticias/:id/archivar
+app.patch('/api/noticias/:id/archivar', (req, res) => {
+  const id = parseInt(req.params.id);
+  const noticia = noticias.find(n => n.id === id);
+  if (!noticia) return res.status(404).json({ error: 'No encontrada' });
+  noticia.archivada = true;
+  res.json(noticia);
+});
+
+// DELETE /api/noticias/:id
+app.delete('/api/noticias/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const idx = noticias.findIndex(n => n.id === id);
+  if (idx === -1) return res.status(404).json({ error: 'No encontrada' });
+  noticias.splice(idx, 1);
+  res.status(204).end();
+});
+
+// GET /api/noticias/:id
+app.get('/api/noticias/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const noticia = noticias.find(n => n.id === id);
+  if (!noticia) return res.status(404).json({ error: 'No encontrada' });
+  res.json(noticia);
+});
+
 // Ruta de prueba
 app.get('/api', (req, res) => {
   res.json({ 
