@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Sidebar.css';
+import AuthService from '../../../services/auth.service';
+import { useNavigate } from 'react-router-dom';
 
 const menuItems = [
   { 
@@ -47,12 +49,17 @@ const menuItems = [
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
   };
+  const handleLogout = () => {
+    AuthService.logout();
+    navigate('/login');
+  };
 
-  return (
+    return (
     <div className={`sidebar ${collapsed ? 'collapsed' : ''} ${isOpen ? 'mobile-open' : ''}`}>
       <div className="sidebar-header">
         {!collapsed && <h3>Soporte Técnico</h3>}
@@ -67,7 +74,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             key={item.id}
             to={item.path}
             className={`nav-item ${location.pathname === item.path ? 'active' : ''} ${item.className || ''}`}
-            onClick={onClose}
+            onClick={item.path === '/logout' ? handleLogout : null}
           >
             <span className="nav-icon">{item.icon}</span>
             {!collapsed && (

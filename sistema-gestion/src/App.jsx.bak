@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import AuthService from './services/auth.service';
-import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 import './css/main.css';
 
 // Componentes
@@ -97,51 +96,11 @@ const App = () => {
             isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/login" />
           } />
 
-          {/* Dashboard principal, solo para usuarios autenticados (cualquier rol) */}
+          {/* Rutas protegidas */}
           <Route path="/dashboard" element={
-            <RoleProtectedRoute allowedRoles={['admin', 'soporte', 'sucursal']}>
+            <ProtectedRoute>
               <Dashboard />
-            </RoleProtectedRoute>
-          } />
-
-          {/* Dashboard de soporte y subrutas, solo para soporte */}
-          <Route path="/dashboard/soporte" element={
-            <RoleProtectedRoute allowedRoles={['soporte']}>
-              <SoporteDashboard />
-            </RoleProtectedRoute>
-          }>
-            <Route index element={<Navigate to="bandeja" replace />} />
-            <Route path="bandeja" element={<BandejaPage />} />
-            <Route path="mis-tickets" element={<MisTicketsPage />} />
-            <Route path="historial" element={<HistorialPage />} />
-            <Route path="chat" element={<ChatPage />} />
-            <Route path="configuracion" element={<ConfiguracionPage />} />
-          </Route>
-
-          {/* Tickets, solo para soporte y admin */}
-          <Route path="/tickets" element={
-            <RoleProtectedRoute allowedRoles={['soporte', 'admin']}>
-              <TicketsList />
-            </RoleProtectedRoute>
-          } />
-
-          <Route path="/tickets/nuevo" element={
-            <RoleProtectedRoute allowedRoles={['soporte', 'admin']}>
-              <NewTicket />
-            </RoleProtectedRoute>
-          } />
-
-          <Route path="/tickets/:id" element={
-            <RoleProtectedRoute allowedRoles={['soporte', 'admin']}>
-              <TicketDetail />
-            </RoleProtectedRoute>
-          } />
-
-          {/* Perfil: cualquier usuario autenticado */}
-          <Route path="/profile" element={
-            <RoleProtectedRoute allowedRoles={['admin', 'soporte', 'sucursal']}>
-              <Profile onLogout={() => setIsAuthenticated(false)} />
-            </RoleProtectedRoute>
+            </ProtectedRoute>
           } />
 
           {/* Ruta para sesión expirada */}
