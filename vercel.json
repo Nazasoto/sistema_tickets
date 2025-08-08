@@ -4,19 +4,11 @@
     {
       "src": "sistema-gestion/package.json",
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "config": { "distDir": "dist" }
     }
   ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "https://soporte-8ja2.onrender.com/api/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/sistema-gestion/dist/index.html"
-    }
+  "routes": [
+    { "src": "/api/(.*)", "dest": "https://soporte-8ja2.onrender.com/api/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
