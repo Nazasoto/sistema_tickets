@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_URL = '/api/noticias';
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://soporte-8ja2.onrender.com/api/noticias'
+  : '/api/noticias';
 
 export const getNoticias = async () => {
   const res = await axios.get(API_URL);

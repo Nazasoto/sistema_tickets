@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // Configuración de la API
-const API_BASE_URL = '/api';
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://soporte-8ja2.onrender.com/api'
+  : '/api';
 
 // Crear instancia de Axios
 const api = axios.create({
