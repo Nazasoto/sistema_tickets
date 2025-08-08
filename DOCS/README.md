@@ -73,7 +73,6 @@ Sistema de Gestión de Tickets es una aplicación web completa diseñada para la
 - **Express** - Framework para el servidor web
 - **JSON Web Tokens (JWT)** - Autenticación y autorización
 - **File System (fs)** - Manejo de archivos JSON como base de datos
-- MongoDB con Mongoose (Se desea cambiar a SQLserver)
 - JWT para autenticación
 - Bcrypt para hashing de contraseñas
 - Winston para logging
