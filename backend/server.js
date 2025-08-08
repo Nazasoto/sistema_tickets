@@ -24,7 +24,7 @@ app.use(express.json());
 // app.use(express.static(frontendPath));
 
 // Middleware para manejar rutas de API
-app.use('/api/noticias', noticiasRouter);
+// app.use('/api/noticias', noticiasRouter); // Comentado para evitar duplicación
 
 // Crear directorio de datos si no existe
 const dataDir = join(__dirname, 'data');
@@ -185,10 +185,10 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ error: message });
 });
 
-// Middleware para manejar rutas de SPA
-app.get('*', (req, res) => {
-  res.sendFile(join(frontendPath, 'index.html'));
-});
+// Middleware para manejar rutas de SPA (solo en desarrollo)
+// app.get('*', (req, res) => {
+//   res.sendFile(join(frontendPath, 'index.html'));
+// });
 
 // Iniciar servidor
 const PORT = process.env.PORT || 3000;
