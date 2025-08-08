@@ -7,20 +7,16 @@
       "config": {
         "distDir": "dist"
       }
-    },
-    {
-      "src": "backend/server.js",
-      "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/backend/server.js"
+      "source": "/api/(.*)",
+      "destination": "https://soporte-8ja2.onrender.com/api/$1"
     },
     {
-      "src": "(.*)",
-      "dest": "/sistema-gestion/dist/index.html"
+      "source": "/(.*)",
+      "destination": "/sistema-gestion/dist/index.html"
     }
   ]
 }
