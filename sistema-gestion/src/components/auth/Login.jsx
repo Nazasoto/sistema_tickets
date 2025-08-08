@@ -14,11 +14,6 @@ const Login = ({ onLoginSuccess }) => {
     e.preventDefault();
     setError('');
     
-    console.log('Formulario enviado con:', { 
-      email: email || '(vacío)', 
-      password: password ? '***' : '(vacío)' 
-    });
-    
     // Validación básica
     if (!email || !password) {
       const errorMsg = `Faltan credenciales - Email: ${email ? 'presente' : 'faltante'}, Contraseña: ${password ? 'presente' : 'faltante'}`;
@@ -39,7 +34,6 @@ const Login = ({ onLoginSuccess }) => {
     try {
       console.log('Intentando iniciar sesión...');
       const user = await AuthService.login(email, password);
-      console.log('Respuesta del servicio de autenticación:', user);
       
       if (user) {
         console.log('Inicio de sesión exitoso, redirigiendo...');
@@ -95,7 +89,6 @@ const Login = ({ onLoginSuccess }) => {
               className="form-control"
               value={password}
               onChange={(e) => {
-                console.log('Contraseña cambiada a:', e.target.value ? '***' : '(vacío)');
                 setPassword(e.target.value);
               }}
               required
@@ -113,7 +106,7 @@ const Login = ({ onLoginSuccess }) => {
         
         <div className="auth-footer">
           <p>
-            ¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link>
+            ¿No tienes una cuenta? <Link to="/register">Registrate</Link>
           </p>
           <p>
             <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>

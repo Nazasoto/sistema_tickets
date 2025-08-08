@@ -85,8 +85,11 @@ const HistorialPage = () => {
 
   return (
     <div className="page-container">
+      <h1>ESTAMOS TRABAJANDO EN ESTO</h1>
+      {/*
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="section-title">Historial de Tickets</h2>
+
         <div className="d-flex gap-2">
           <div className="input-group" style={{ maxWidth: '300px' }}>
             <span className="input-group-text">
@@ -262,6 +265,7 @@ const HistorialPage = () => {
           </div>
         </div>
       </div>
+*/}
     </div>
   );
 };

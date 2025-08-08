@@ -41,7 +41,8 @@ const BandejaPage = () => {
 
   return (
     <div className="page-container">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <h1>ESTAMOS TRABAJANDO EN ESTO</h1>
+      {/*<div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="section-title">Bandeja de Entrada</h2>
         <div className="d-flex gap-2">
           <button className="btn btn-outline">
@@ -110,7 +111,7 @@ const BandejaPage = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

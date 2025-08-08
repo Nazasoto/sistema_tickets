@@ -1,28 +1,22 @@
 import api from './api.service';
 
 const login = async (email, password) => {
-  try {
-    console.log('Iniciando sesión con:', { email, password: '***' });
-    
+  try {    
     // Asegurémonos de que los datos se envíen correctamente
     const requestData = { email, password };
-    console.log('Enviando datos al servidor:', { ...requestData, password: '***' });
-    
+
     const response = await api.post('/auth/login', requestData, {
       headers: {
         'Content-Type': 'application/json'
       }
     });
     
-    console.log('Respuesta del servidor (raw):', response);
-    console.log('Datos de la respuesta:', response.data);
     
     // Verificar la respuesta exitosa
     if (response.data) {
       if (response.data.user) {
         // Guardar usuario en localStorage
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        console.log('Usuario autenticado:', response.data.user);
         return response.data.user;
       } else if (response.data.error) {
         throw new Error(response.data.error);

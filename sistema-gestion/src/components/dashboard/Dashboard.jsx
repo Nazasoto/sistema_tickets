@@ -28,7 +28,6 @@ const Dashboard = () => {
       setError('');
       
       try {
-        console.log('Cargando datos del dashboard...');
         
         // Obtener datos del usuario
         const userData = AuthService.getCurrentUser();
@@ -37,7 +36,6 @@ const Dashboard = () => {
         }
         setUser(userData);
 
-        console.log('Obteniendo tickets...');
         // Obtener tickets del backend
         const tickets = await TicketService.getAllTickets();
         
@@ -56,7 +54,6 @@ const Dashboard = () => {
           return;
         }
         
-        console.log(`Se obtuvieron ${tickets.length} tickets`);
         
         // Calcular estadísticas de forma robusta (insensible a mayúsculas)
         const totalTickets = tickets.length;
@@ -64,8 +61,6 @@ const Dashboard = () => {
         const inProgressTickets = tickets.filter(t => (t.estado || '').toLowerCase() === 'en_progreso' || (t.estado || '').toLowerCase() === 'en progreso').length;
         const closedTickets = tickets.filter(t => (t.estado || '').toLowerCase() === 'cerrado').length;
 
-        console.log('Estadísticas calculadas:', { totalTickets, openTickets, inProgressTickets, closedTickets });
-        
         setStats({
           totalTickets,
           openTickets,
@@ -85,7 +80,6 @@ const Dashboard = () => {
           })
           .slice(0, 5);
 
-        console.log('Tickets recientes:', sortedTickets);
         setRecentTickets(sortedTickets);
         
       } catch (error) {

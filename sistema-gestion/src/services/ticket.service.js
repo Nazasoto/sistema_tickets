@@ -5,15 +5,12 @@ export const TicketService = {
   // Obtener todos los tickets
   async getAllTickets() {
     try {
-      console.log('Solicitando tickets a:', API_ENDPOINTS.TICKETS.BASE);
       const response = await api.get(API_ENDPOINTS.TICKETS.BASE);
-      console.log('Respuesta del servidor (tickets):', response);
       
       if (!response || !response.data) {
         console.error('Respuesta inesperada del servidor:', response);
         throw new Error('Respuesta inesperada del servidor');
       }
-      
       return response.data;
     } catch (error) {
       console.error('Error al obtener los tickets:', error);

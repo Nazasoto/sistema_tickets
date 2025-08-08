@@ -30,7 +30,6 @@ api.interceptors.request.use(
 // Interceptor para manejar respuestas
 api.interceptors.response.use(
   (response) => {
-    console.log('Respuesta de la API:', response.config.url, response.data);
     return response;
   },
   (error) => {

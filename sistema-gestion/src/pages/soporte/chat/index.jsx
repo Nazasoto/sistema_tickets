@@ -56,8 +56,10 @@ const ChatPage = () => {
 
   return (
     <div className="page-container p-0">
+
       <div className="chat-container">
-        {/* Lista de chats */}
+        {/*
+        Lista de chats
         <div className="chat-sidebar">
           <div className="chat-header">
             <h5>Chats</h5>
@@ -108,8 +110,7 @@ const ChatPage = () => {
             ))}
           </div>
         </div>
-        
-        {/* Área de chat */}
+          
         <div className="chat-main">
           {activeChat ? (
             <>
@@ -170,8 +171,12 @@ const ChatPage = () => {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
+
+
+        <h1>ESTAMOS TRABAJANDO EN ESTO</h1>
       </div>
+
     </div>
   );
 };
