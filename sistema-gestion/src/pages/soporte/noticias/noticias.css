@@ -203,7 +203,7 @@
   max-width: 98vw;
   max-height: 95vh;
   overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(41,128,185,0.18);
+  box-shadow: 0 8px 32px rgba(0, 153, 255, 0.096);
   position: relative;
 }
 .close-btn {
@@ -270,3 +270,5 @@
 .btn-secondary:hover {
   background: #aab4be;
 }
+
+

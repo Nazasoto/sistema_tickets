@@ -64,7 +64,12 @@ const Login = ({ onLoginSuccess }) => {
   return (
     <div className="auth-container">
       <div className="auth-form-container">
-        <h2>Iniciar Sesión</h2>
+        {/* Banner de Beta */}
+        <div className="beta-banner">
+          <span className="beta-text">Versión Beta</span>
+        </div>
+        
+        <h2>INICIAR SESIÓN</h2>
         {error && <div className="alert alert-danger">{error}</div>}
         
         <form onSubmit={handleSubmit} className="auth-form">

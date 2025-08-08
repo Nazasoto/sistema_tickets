@@ -31,6 +31,11 @@ const SucursalNotificacionesPage = () => {
     // eslint-disable-next-line
   }, []);
 
+  // Volver a la pagina anterior
+  const handleVolver = () => {
+    window.history.back();
+  };
+
   // Recargar noticias manualmente
   const recargarNoticias = cargarNoticias;
 
@@ -46,6 +51,7 @@ const SucursalNotificacionesPage = () => {
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:8}}>
         <h2 style={{margin:0}}>Notificaciones</h2>
         <button className="btn btn-secondary" onClick={recargarNoticias} style={{height:32}}>Actualizar</button>
+        <button className="btn btn-secondary" onClick={handleVolver} style={{height:32}}>Volver</button>
       </div>
       {noticias.length === 0 && <p>No hay notificaciones nuevas.</p>}
       <div className="noticias-list">

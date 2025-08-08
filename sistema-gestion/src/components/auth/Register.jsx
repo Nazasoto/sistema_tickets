@@ -64,7 +64,11 @@ const Register = () => {
   return (
     <div className="auth-container">
       <div className="auth-form-container">
-        <h2>Crear Cuenta</h2>
+        {/* Banner de Beta */}
+        <div className="beta-banner">
+          <span className="beta-text">Versión Beta</span>
+        </div>
+        <h2>SOLICITAR USUARIO</h2>
         {error && <div className="alert alert-danger">{error}</div>}
         
         <form onSubmit={handleSubmit} className="auth-form">
@@ -93,6 +97,21 @@ const Register = () => {
               required
             />
           </div>
+
+          <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-group">
+            <label htmlFor="nombreUsuario">Nombre de Usuario</label>
+            <input
+              type="text"
+              id="nombreUsuario"
+              name="nombreUsuario"
+              className="form-control"
+              //value={nombreUsuario}
+              //onChange={handleChange}
+              required
+            />
+          </div>
+          </form>
           
           <div className="form-group">
             <label htmlFor="password">Contraseña</label>
